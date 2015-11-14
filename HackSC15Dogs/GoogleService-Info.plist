@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>GCM_SENDER_ID</key>
-	<string>992421539108</string>
+	<string>183956934878</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.wannabedev.HackSC15Dogs</string>
+	<string>com.company.hackSC15v3R</string>
 	<key>IS_ADS_ENABLED</key>
 	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -19,6 +19,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<false/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:992421539108:ios:e4f0cbe1bd6b4c84</string>
+	<string>1:183956934878:ios:ab712f78657bd931</string>
 </dict>
 </plist>
