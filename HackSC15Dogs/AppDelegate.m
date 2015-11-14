@@ -13,7 +13,10 @@
 
 #import "WBDMessagesViewController.h"
 #import "WBDDatesViewController.h"
+#import "WBDFavoritesViewController.h"
+#import "WBDHomeViewController.h"
 
+@import GoogleMaps;
 @interface AppDelegate ()
 // FOR GCM
 @property(nonatomic, strong) void (^registrationHandler)
@@ -33,6 +36,7 @@ NSString *const SubscriptionTopic = @"/topics/global";
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self registerRemoteNotifications];
     [self startGCMStuff];
+    [GMSServices provideAPIKey:@"AIzaSyCjXLKN4rzvyXk87PksMiPn5OJBESEAp6E"];
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -41,8 +45,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.tabController = [[UITabBarController alloc] init];
     self.tabController.hidesBottomBarWhenPushed = NO;
     
-    self.tabController.viewControllers = @[[self makeMessagesController],
-                                           [self makeDatesController]
+    self.tabController.viewControllers = @[[self makeHomeController],
+                                           [self makeMessagesController],
+                                           [self makeDatesController],
+                                           [self makeFavoritesController]
                                            ];
     self.tabController.selectedIndex = 0;
     
@@ -51,6 +57,25 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+- (UINavigationController *)makeHomeController{
+    WBDHomeViewController *homeView = [[WBDHomeViewController alloc] init];
+    homeView.title = @"Find Dogs";
+    
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:homeView];
+    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Find Dogs" image:[UIImage imageNamed:@"iconHome.png"] tag:0];
+//    viewController.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:homeView action:[WBDHomeViewController getFilterSelector]]];
+    return viewController;
+}
+
+- (UINavigationController *)makeFavoritesController{
+    WBDFavoritesViewController *favoritesView = [[WBDFavoritesViewController alloc] init];
+    favoritesView.title = @"Favorites";
+    
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:favoritesView];
+    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[UIImage imageNamed:@"iconFavorite.png"] tag:0];
+    return viewController;
 }
 
 - (UINavigationController *)makeDatesController{
@@ -196,6 +221,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                                                         scope:kGGLInstanceIDScopeGCM
                                                       options:_registrationOptions
                                                       handler:_registrationHandler];
+    NSLog(@"Token: %@", _gcmSenderID);
     // [END get_gcm_reg_token]
 }
 

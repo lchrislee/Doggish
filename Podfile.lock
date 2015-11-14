@@ -54,6 +54,7 @@ PODS:
   - GoogleIPhoneUtilities (1.0.0):
     - GoogleSymbolUtilities (~> 1.0)
     - GoogleUtilities (~> 1.0)
+  - GoogleMaps (1.10.5)
   - GoogleNetworkingUtilities (1.0.0):
     - GoogleSymbolUtilities (~> 1.0)
   - GoogleSymbolUtilities (1.0.3)
@@ -78,6 +79,7 @@ DEPENDENCIES:
   - AWSSNS
   - AWSSQS
   - Google/CloudMessaging
+  - GoogleMaps
 
 SPEC CHECKSUMS:
   AWSAutoScaling: df8e90e5a9a5bd2724498b9d6858666784ee8624
@@ -101,6 +103,7 @@ SPEC CHECKSUMS:
   GoogleCloudMessaging: eae7280c5317d41fc8e1c93514e925b87eb0b2d2
   GoogleInterchangeUtilities: d7f7174176fbcf9710f696f1acebad4dbd98ac03
   GoogleIPhoneUtilities: a39a5868b46cc0edee933d1cd8f317a33ae5b6d2
+  GoogleMaps: da51c62c338c2d9c47cdad470a0d1e0e4b8544e4
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
   GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
