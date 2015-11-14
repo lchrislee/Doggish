@@ -18,7 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.typeSelect = [[UISegmentedControl alloc] initWithItems:@[@"friends", @"dogs"]];
-    self.typeSelect.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
+    self.typeSelect.selectedSegmentIndex = 0;
+    self.typeSelect.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, 25);
     [self.view addSubview:self.typeSelect];
 }
 

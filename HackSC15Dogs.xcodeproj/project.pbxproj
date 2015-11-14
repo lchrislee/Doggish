@@ -13,6 +13,7 @@
 		2842A12B1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A12A1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m */; };
 		2842A1331BF7D5F80001AEF8 /* WBDHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1321BF7D5F80001AEF8 /* WBDHomeViewController.m */; };
 		2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1351BF7E18B0001AEF8 /* WBDProfileViewController.m */; };
+		2842A13A1BF7E8D10001AEF8 /* WBDAWSCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1391BF7E8D10001AEF8 /* WBDAWSCaller.m */; };
 		28A260841BF6FE420073C6BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260831BF6FE420073C6BA /* main.m */; };
 		28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260861BF6FE420073C6BA /* AppDelegate.m */; };
 		28A2608D1BF6FE420073C6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A2608B1BF6FE420073C6BA /* Main.storyboard */; };
@@ -55,6 +56,7 @@
 		2842A1321BF7D5F80001AEF8 /* WBDHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDHomeViewController.m; path = Home/WBDHomeViewController.m; sourceTree = "<group>"; };
 		2842A1341BF7E18B0001AEF8 /* WBDProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDProfileViewController.h; path = Profile/WBDProfileViewController.h; sourceTree = "<group>"; };
 		2842A1351BF7E18B0001AEF8 /* WBDProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDProfileViewController.m; path = Profile/WBDProfileViewController.m; sourceTree = "<group>"; };
+		2842A1391BF7E8D10001AEF8 /* WBDAWSCaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDAWSCaller.m; path = Managers/WBDAWSCaller.m; sourceTree = "<group>"; };
 		28A2607F1BF6FE420073C6BA /* HackSC15Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackSC15Dogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A260831BF6FE420073C6BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		28A260851BF6FE420073C6BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -185,6 +187,21 @@
 			name = "Sub Screens";
 			sourceTree = "<group>";
 		};
+		2842A1371BF7E8840001AEF8 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				2842A1391BF7E8D10001AEF8 /* WBDAWSCaller.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		2842A1381BF7E88B0001AEF8 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Factories;
+			sourceTree = "<group>";
+		};
 		28A260761BF6FE420073C6BA = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +230,8 @@
 		28A260811BF6FE420073C6BA /* HackSC15Dogs */ = {
 			isa = PBXGroup;
 			children = (
+				2842A1381BF7E88B0001AEF8 /* Factories */,
+				2842A1371BF7E8840001AEF8 /* Managers */,
 				2842A1251BF7BA2C0001AEF8 /* Sub Screens */,
 				2842A11C1BF7AD400001AEF8 /* Side Screens */,
 				2842A11B1BF7AD380001AEF8 /* Main Tabs */,
@@ -455,6 +474,7 @@
 				2842A1241BF7AE280001AEF8 /* WBDMessagesViewController.m in Sources */,
 				2842A12B1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m in Sources */,
 				2842A1331BF7D5F80001AEF8 /* WBDHomeViewController.m in Sources */,
+				2842A13A1BF7E8D10001AEF8 /* WBDAWSCaller.m in Sources */,
 				2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */,
 				28A260841BF6FE420073C6BA /* main.m in Sources */,
 				2842A1281BF7BA960001AEF8 /* WBDDatesViewController.m in Sources */,

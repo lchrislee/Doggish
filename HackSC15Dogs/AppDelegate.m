@@ -15,6 +15,7 @@
 #import "WBDDatesViewController.h"
 #import "WBDFavoritesViewController.h"
 #import "WBDHomeViewController.h"
+#import "WBDProfileViewController.h"
 
 @import GoogleMaps;
 @interface AppDelegate ()
@@ -48,7 +49,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.tabController.viewControllers = @[[self makeHomeController],
                                            [self makeMessagesController],
                                            [self makeDatesController],
-                                           [self makeFavoritesController]
+                                           [self makeFavoritesController],
+                                           [self makeProfileController]
                                            ];
     self.tabController.selectedIndex = 0;
     
@@ -93,6 +95,14 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:messageView];
     navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Messages" image:[UIImage imageNamed:@"iconChat.png"] tag:0];
+    return navController;
+}
+
+- (UINavigationController *)makeProfileController{
+    WBDProfileViewController *profileView = [[WBDProfileViewController alloc] init];
+    profileView.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"iconProfile"] tag:0];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:profileView];
     return navController;
 }
 
