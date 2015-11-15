@@ -8,9 +8,11 @@
 
 #import "WBDFilterViewController.h"
 
-@interface WBDFilterViewController ()
+@interface WBDFilterViewController () <UISearchBarDelegate>
 @property (strong, nonatomic) UISlider *sliderSize;
 @property (strong, nonatomic) UISlider *sliderAge;
+
+@property (strong, nonatomic) UISearchBar *searchBreedName;
 @end
 
 @implementation WBDFilterViewController
@@ -61,6 +63,14 @@
     
     [self.view addSubview:self.sliderAge];
     [self.view addSubview:self.sliderSize];
+    
+    self.searchBreedName = [[UISearchBar alloc] init];
+    self.searchBreedName.delegate = self;
+    self.searchBreedName.placeholder = @"Search by breed";
+    [self.searchBreedName becomeFirstResponder];
+    [self.searchBreedName resignFirstResponder];
+    
+    self.navigationItem.titleView = self.searchBreedName;
 }
 
 - (void)didReceiveMemoryWarning {

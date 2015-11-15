@@ -64,7 +64,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 
 - (UINavigationController *)makeHomeController{
-    WBDFilterViewController *homeView = [[WBDFilterViewController alloc] init];
+    WBDHomeViewController *homeView = [[WBDHomeViewController alloc] init];
     homeView.title = @"Find Dogs";
     
     UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:homeView];
@@ -83,7 +83,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 
 - (UINavigationController *)makeDatesController{
-    WBDDatesViewController *dateView = [[WBDDatesViewController alloc] init];
+    WBDFilterViewController *dateView = [[WBDFilterViewController alloc] init];
     dateView.title = @"Dates";
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dateView];

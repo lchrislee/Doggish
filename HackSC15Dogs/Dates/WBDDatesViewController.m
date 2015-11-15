@@ -15,19 +15,7 @@
 
 @implementation WBDDatesViewController
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Date Cell" forIndexPath:indexPath];
-    if (!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Date Cell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-    }
-    
-    cell.textLabel.text = [self.dates objectAtIndex:indexPath.row];
-    
-    return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section{
     return (section == 0 ? [self.dates count] : 0);
 }
 
@@ -35,10 +23,24 @@
     return 1;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Message Cell" forIndexPath:indexPath];
+    
+    if (!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Message Cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    }
+    cell.textLabel.text = [self.dates objectAtIndex:indexPath.row];
+    
+    return cell;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.dates addObject:@"Chicken"];
     [self.dates addObject:@"Monkeys"];
+    [self.dates addObject:@"Yogurt"];
+    [self.dates addObject:@"Bananas"];
     [self.view addSubview:self.table];
     [self.table reloadData];
 }
@@ -61,7 +63,7 @@
                                               style:UITableViewStylePlain];
         _table.delegate = self;
         _table.dataSource = self;
-        [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Date Cell"];
+        [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Message Cell"];
         _table.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.origin.y,
                                                self.navigationController.navigationBar.frame.size.height, 0, 0);
     }
