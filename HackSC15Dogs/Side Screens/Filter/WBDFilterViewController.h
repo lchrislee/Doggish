@@ -1,19 +1,13 @@
 //
-//  WBDAWSCaller.m
+//  WBDFilterViewController.h
 //  HackSC15Dogs
 //
 //  Created by abc on 11/14/15.
 //  Copyright © 2015 Wannabedev. All rights reserved.
 //
 
-#import "WBDAWSCaller.h"
+#import <UIKit/UIKit.h>
 
-@interface WBDAWSCaller ()
-
-@end
-
-@implementation WBDAWSCaller
-
-
+@interface WBDFilterViewController : UIViewController
 
 @end

@@ -17,6 +17,8 @@
 #import "WBDHomeViewController.h"
 #import "WBDProfileViewController.h"
 
+#import "WBDFilterViewController.h"
+
 @import GoogleMaps;
 @interface AppDelegate ()
 // FOR GCM
@@ -62,12 +64,12 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 
 - (UINavigationController *)makeHomeController{
-    WBDHomeViewController *homeView = [[WBDHomeViewController alloc] init];
+    WBDFilterViewController *homeView = [[WBDFilterViewController alloc] init];
     homeView.title = @"Find Dogs";
     
     UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:homeView];
     viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Find Dogs" image:[UIImage imageNamed:@"iconHome.png"] tag:0];
-//    viewController.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:homeView action:[WBDHomeViewController getFilterSelector]]];
+//    viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:homeView action:[WBDHomeViewController getFilterSelector]];
     return viewController;
 }
 
