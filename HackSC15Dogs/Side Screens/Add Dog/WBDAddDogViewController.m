@@ -11,11 +11,13 @@
 #import <AWSCognito/AWSCognito.h>
 #import <AWSLambda/AWSLambda.h>
 
-@interface WBDAddDogViewController ()
+@interface WBDAddDogViewController () <UIImagePickerControllerDelegate>
+@property (strong, nonatomic) UIImageView *image;
 @property (strong, nonatomic) UITextField *name;
 @property (strong, nonatomic) UITextField *breed;
 @property (strong, nonatomic) UISlider *sliderSize;
 @property (strong, nonatomic) UISlider *sliderAge;
+@property (strong, nonatomic) UIImagePickerController *imagePicker;
 @end
 
 @implementation WBDAddDogViewController
@@ -24,17 +26,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.name = [[UITextField alloc] initWithFrame:CGRectMake(10, 50, 80, 30)];
+    self.name = [[UITextField alloc] initWithFrame:CGRectMake(30, 210, 80, 30)];
     [self.name setPlaceholder:@"Name"];
     
     [self.view addSubview:self.name];
     
-    self.breed = [[UITextField alloc] initWithFrame:CGRectMake(10, 100, 80, 30)];
+    self.breed = [[UITextField alloc] initWithFrame:CGRectMake(30, 260, 100, 30)];
     [self.breed setPlaceholder:@"Dog Breed"];
     
     [self.view addSubview:self.breed];
     
-    self.sliderSize = [[UISlider alloc] initWithFrame:CGRectMake(10, 125, self.view.frame.size.width - 40, 50)];
+    self.sliderSize = [[UISlider alloc] initWithFrame:CGRectMake(10, 335, self.view.frame.size.width - 30, 50)];
     
     self.sliderSize.minimumValueImage = [UIImage imageNamed:@"iconSizeMin.png"];
     self.sliderSize.maximumValueImage = [UIImage imageNamed:@"iconSizeMax.png"];
@@ -42,7 +44,7 @@
     self.sliderSize.value = 2;
     [self.sliderSize addTarget:self action:@selector(sizeValueChanged) forControlEvents:UIControlEventValueChanged];
     
-    self.sliderAge = [[UISlider alloc] initWithFrame:CGRectMake(10, 250, self.view.frame.size.width - 40, 50)];
+    self.sliderAge = [[UISlider alloc] initWithFrame:CGRectMake(10, 420, self.view.frame.size.width - 30, 50)];
     self.sliderAge.minimumValueImage = [UIImage imageNamed:@"iconAgeMin.png"];
     self.sliderAge.maximumValueImage = [UIImage imageNamed:@"iconAgeMax.png"];
     self.sliderAge.maximumValue = 4;
@@ -52,7 +54,21 @@
     [self.view addSubview:self.sliderAge];
     [self.view addSubview:self.sliderSize];
     
+    self.navigationItem.title = @"Traits";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveDog)];
+    
+    self.image = [[UIImageView alloc] init];
+    self.image.center = CGPointMake(30, self.navigationController.navigationBar.frame.size.height + 30);
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.backgroundColor = [UIColor blackColor];
+    [button setTitle:@"Add image" forState:UIControlStateNormal];
+    button.center = CGPointMake(150, self.navigationController.navigationBar.frame.size.height + 30);
+    [button addTarget:self action:@selector(showCamera) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    [self.view bringSubviewToFront:button];
+    
+    [self.view addSubview:self.image];
 }
 
 - (void) saveDog{
@@ -95,6 +111,47 @@
     }else{
         [self.sliderSize setValue:top animated:YES];
     }
+}
+
+- (void )addImagePicker{
+    self.imagePicker = [[UIImagePickerController alloc] init];
+    self.imagePicker.allowsEditing = NO;
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePicker.delegate = self;
+    self.imagePicker.mediaTypes =
+    [UIImagePickerController availableMediaTypesForSourceType:
+     UIImagePickerControllerSourceTypeCamera];
+}
+
+- (void) showCamera{
+    [self.navigationController pushViewController:self.imagePicker animated:YES];
+}
+
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    UIImage *originalImage, *editedImage, *imageToSave;
+    
+    // Handle a still image capture
+    editedImage = (UIImage *) [info objectForKey:
+                               UIImagePickerControllerEditedImage];
+    originalImage = (UIImage *) [info objectForKey:
+                                 UIImagePickerControllerOriginalImage];
+    
+    if (editedImage) {
+        imageToSave = editedImage;
+    } else {
+        imageToSave = originalImage;
+    }
+    
+    // Save the new image (original or edited) to the Camera Roll
+    UIImageWriteToSavedPhotosAlbum (imageToSave, nil, nil , nil);
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    picker = nil;
+}
+
+- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    picker = nil;
 }
 
 @end

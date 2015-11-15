@@ -11,10 +11,9 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "WBDAddDogViewController.h"
-@interface WBDProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate>
+@interface WBDProfileViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) UITableView *table;
 @property (strong, nonatomic) NSMutableDictionary *dogs;
-@property (strong, nonatomic) UIImagePickerController *imagePicker;
 @end
 
 @implementation WBDProfileViewController
@@ -62,8 +61,6 @@
     self.table = [[UITableView alloc] init];
     self.table.contentInset = UIEdgeInsetsMake(0, self.navigationController.navigationBar.frame.size.height, 0, 0);
     [self.view addSubview: self.table];
-
-    [self addImagePicker];
     
     [self testFacebookLogin];
 }
@@ -74,17 +71,6 @@
     // request to see friends
     loginButton.readPermissions = @[@"user_friends"];
     [self.view addSubview:loginButton];
-}
-
-- (void )addImagePicker{
-    self.imagePicker = [[UIImagePickerController alloc] initWithRootViewController:self];
-    self.imagePicker.allowsEditing = NO;
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.delegate = self;
-    self.imagePicker.mediaTypes =
-    [UIImagePickerController availableMediaTypesForSourceType:
-     UIImagePickerControllerSourceTypeCamera];
-    [self.navigationController pushViewController:self.imagePicker animated:YES];
 }
 
 - (void) addDog{
