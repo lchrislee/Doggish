@@ -201,7 +201,7 @@ static BOOL showMarkers = YES;
         // conditionalExpression: "attribute_not_exist(ID)"
         // Item:{
         //  ID:"appID"}
-        NSMutableDictionary *item = @{@"ID": appID};
+        NSDictionary *item = @{@"ID": appID};
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:@"create" forKey:@"operation"];
         [dict setObject:@"User" forKey:@"TableName"];
