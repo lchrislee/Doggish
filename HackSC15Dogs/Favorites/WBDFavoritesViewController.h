@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AWSLambda/AWSLambda.h>
 
 @interface WBDFavoritesViewController : UIViewController
 

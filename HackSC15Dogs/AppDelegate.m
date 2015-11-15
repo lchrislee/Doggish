@@ -36,6 +36,7 @@ NSString *const SubscriptionTopic = @"/topics/global";
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self registerRemoteNotifications];
     [self startGCMStuff];
+    [self setUpAws];
     [GMSServices provideAPIKey:@"AIzaSyCjXLKN4rzvyXk87PksMiPn5OJBESEAp6E"];
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
@@ -45,10 +46,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.tabController = [[UITabBarController alloc] init];
     self.tabController.hidesBottomBarWhenPushed = NO;
     
-    self.tabController.viewControllers = @[[self makeHomeController],
+    self.tabController.viewControllers = @[[self makeFavoritesController],
+                                           [self makeHomeController],
                                            [self makeMessagesController],
-                                           [self makeDatesController],
-                                           [self makeFavoritesController]
+                                           [self makeDatesController]
                                            ];
     self.tabController.selectedIndex = 0;
     
@@ -57,6 +58,12 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+-(void)setUpAws{
+    AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:AWSRegionUSEast1 identityPoolId:@"us-east-1:0ca94176-5277-494b-bb55-4ef0f1e95536"];
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:credentialsProvider];
+    AWSServiceManager.defaultServiceManager.defaultServiceConfiguration = configuration;
 }
 
 - (UINavigationController *)makeHomeController{
