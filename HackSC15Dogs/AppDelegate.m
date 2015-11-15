@@ -11,16 +11,15 @@
 #import <Google/CloudMessaging.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-#import "WBDMessagesViewController.h"
 #import "WBDMessagesViewControllerV2.h"
 #import "WBDDatesViewController.h"
 #import "WBDFavoritesViewController.h"
 #import "WBDHomeViewController.h"
 #import "WBDProfileViewController.h"
-
 #import "WBDFilterViewController.h"
 
 @import GoogleMaps;
+
 @interface AppDelegate ()
 // FOR GCM
 @property(nonatomic, strong) void (^registrationHandler)

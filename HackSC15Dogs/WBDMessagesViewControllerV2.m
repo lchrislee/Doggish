@@ -7,14 +7,62 @@
 //
 
 #import "WBDMessagesViewControllerV2.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
+
 
 @implementation WBDMessagesViewControllerV2
-
 
 -(void) viewDidLoad{
 
     [super viewDidLoad];
-    [self createNSDictionaryTestData];
+    NSLog( @"about to call facebook");
+    [self facebookGetData];
+    [self createTable];
+    //[self createNSDictionaryTestData];
+}
+
+- (void) facebookGetData{
+    if( [FBSDKAccessToken currentAccessToken] == nil){
+        NSLog(@"its nill");
+    }
+    else{
+        NSLog(@"its not");
+    }
+    if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"user_friends"]){
+        // create a request to actually get the friends
+        FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/friends?fields=name,picture"
+                                                                        parameters:nil];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error){
+                NSLog(@"Cannot complete request");
+                return;
+            }
+            else{
+                NSLog(@"successful request with: %@", result);
+//                data =     (
+//                            {
+//                                id = 175963559418853;
+//                                name = "Catt Whiskerr";
+//                                picture =             {
+//                                    data =                 {
+//                                        "is_silhouette" = 0;
+//                                        url = "https://scontent.xx.fbcdn.net/hprofile-xfp1/v/t1.0-1/p50x50/11745435_105196086495601_5948120944887724456_n.jpg?oh=5cfe4af084e0a192d15aefefc3464b23&oe=56B87428";
+//                                    };
+//                                };
+//                            }
+//                            );
+                //NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+                self.contentNSArray = [(NSDictionary *)result objectForKey:@"data"];// sortedArrayUsingDescriptors:@[descriptor]] mutableCopy];
+                [self.chatsUITableView reloadData];
+            }
+        }];
+    }
+
+}
+
+- (void) createTable{
     self.chatsUITableView = [[UITableView alloc] initWithFrame:self.view.frame
                                                          style:UITableViewStylePlain];
     self.chatsUITableView.delegate = self;
@@ -25,7 +73,6 @@
     self.chatsUITableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview: self.chatsUITableView];
 }
-
 
 - (void)viewDidUnload {
     //self.tableView = nil;
@@ -76,13 +123,25 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-
     NSDictionary *item = (NSDictionary *)[self.contentNSArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [item objectForKey:@"mainTitleKey"];
-    cell.detailTextLabel.text = [item objectForKey:@"secondaryTitleKey"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
-    UIImage *theImage = [UIImage imageWithContentsOfFile:path];
-    cell.imageView.image = theImage;
+    //              id:,
+    //              name:,
+    //              picture:
+    //                  {
+    //                      data:{
+    //                          "is_silhouette": 0/1;
+    //                          url:
+    //                      }
+    //                  };
+    //          }
+    cell.textLabel.text = [item objectForKey:@"name"];
+    NSString * url = [[[item objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url ]]];
+    cell.imageView.image = image;
+//    dispatch_async(dispatch_get_main_queue(), ^(){
+//        cell.imageView.image = image;
+//        [self.chatsUITableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    });
     return cell;
 }
 

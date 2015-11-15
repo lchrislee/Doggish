@@ -11,7 +11,8 @@
 @interface WBDMessagesViewControllerV2 : UIViewController<UITableViewDelegate, UITableViewDataSource>{
 }
 
-@property (nonatomic, strong) NSArray *contentNSArray;
+@property (nonatomic, strong) NSMutableArray *contentNSArray;
 @property (nonatomic, retain) UITableView *chatsUITableView;
+
 
 @end

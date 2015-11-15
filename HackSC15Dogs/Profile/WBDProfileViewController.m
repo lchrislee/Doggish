@@ -7,7 +7,8 @@
 //
 
 #import "WBDProfileViewController.h"
-
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 @interface WBDProfileViewController ()
 
 @end
@@ -17,6 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self testFacebookLogin];
+}
+
+-(void) testFacebookLogin{
+    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+    loginButton.center = self.view.center;
+    // request to see friends
+    loginButton.readPermissions = @[@"user_friends"];
+    [self.view addSubview:loginButton];
 }
 
 - (void)didReceiveMemoryWarning {
