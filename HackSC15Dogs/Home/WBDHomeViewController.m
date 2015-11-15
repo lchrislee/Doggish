@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "WBDAWSCaller.h"
+#import "WBDSearchProfileViewController.h"
 
 @import GoogleMaps;
 @interface WBDHomeViewController () <GMSMapViewDelegate>
@@ -69,6 +70,7 @@ static BOOL showMarkers = YES;
                                            camera:camera];
     
     self.mapGMSMapView.camera = camera;
+    self.mapGMSMapView.delegate = self;
     self.mapGMSMapView.myLocationEnabled = YES;
     
     [self.view addSubview:self.mapGMSMapView];
@@ -76,11 +78,13 @@ static BOOL showMarkers = YES;
 }
 
 -(BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker{
+    NSLog(@"clicked marker");
     return NO;
 }
 
 -(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker{
-    
+    NSLog(@"Clicked infowindow");
+    [self.navigationController pushViewController:[[WBDSearchProfileViewController alloc] init] animated:YES];
 }
 
 - (void) addMarkers{
@@ -90,6 +94,7 @@ static BOOL showMarkers = YES;
     markerFirst.title = @"Fido";
     markerFirst.snippet = @"heading over";
     markerFirst.map = self.mapGMSMapView;
+    markerFirst.icon = [UIImage imageNamed:@"gmPin.png"];
 
     // Creates a marker in the center of the map.
     GMSMarker *markerSecond = [[GMSMarker alloc] init];
@@ -97,6 +102,7 @@ static BOOL showMarkers = YES;
     markerSecond.title = @"Molly";
     markerSecond.snippet = @"playing";
     markerSecond.map = self.mapGMSMapView;
+    markerSecond.icon = [UIImage imageNamed:@"gmPin.png"];
 }
 
 - (void) segmentedSelected{
@@ -153,6 +159,7 @@ static BOOL showMarkers = YES;
     {
         showMarkers = YES;
     }
+    [self.tabBarController setHidesBottomBarWhenPushed:YES];
 }
 
 - (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary{

@@ -16,6 +16,8 @@
 		2842A13A1BF7E8D10001AEF8 /* WBDAWSCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1391BF7E8D10001AEF8 /* WBDAWSCaller.m */; };
 		2842A13C1BF7EB0D0001AEF8 /* WBDJSONFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A13B1BF7EB0D0001AEF8 /* WBDJSONFactory.m */; };
 		2842A1411BF7F1970001AEF8 /* WBDFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1401BF7F1970001AEF8 /* WBDFilterViewController.m */; };
+		2842A1461BF82CFE0001AEF8 /* WBDSearchProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */; };
+		2842A1481BF830B00001AEF8 /* WBDMapMarkerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */; };
 		28A260841BF6FE420073C6BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260831BF6FE420073C6BA /* main.m */; };
 		28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260861BF6FE420073C6BA /* AppDelegate.m */; };
 		28A2608D1BF6FE420073C6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A2608B1BF6FE420073C6BA /* Main.storyboard */; };
@@ -64,6 +66,10 @@
 		2842A13E1BF7EBAB0001AEF8 /* WBDAWSCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDAWSCaller.h; path = Managers/WBDAWSCaller.h; sourceTree = "<group>"; };
 		2842A13F1BF7F1970001AEF8 /* WBDFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDFilterViewController.h; path = "Side Screens/Filter/WBDFilterViewController.h"; sourceTree = "<group>"; };
 		2842A1401BF7F1970001AEF8 /* WBDFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDFilterViewController.m; path = "Side Screens/Filter/WBDFilterViewController.m"; sourceTree = "<group>"; };
+		2842A1441BF82CFE0001AEF8 /* WBDSearchProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDSearchProfileViewController.h; path = "Side Screens/WBDSearchProfileViewController.h"; sourceTree = "<group>"; };
+		2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDSearchProfileViewController.m; path = "Side Screens/WBDSearchProfileViewController.m"; sourceTree = "<group>"; };
+		2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDMapMarkerFactory.m; path = Factories/WBDMapMarkerFactory.m; sourceTree = "<group>"; };
+		2842A1491BF830C60001AEF8 /* WBDMapMarkerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDMapMarkerFactory.h; path = Factories/WBDMapMarkerFactory.h; sourceTree = "<group>"; };
 		28A2607F1BF6FE420073C6BA /* HackSC15Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackSC15Dogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A260831BF6FE420073C6BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		28A260851BF6FE420073C6BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -140,6 +146,8 @@
 			children = (
 				2842A13F1BF7F1970001AEF8 /* WBDFilterViewController.h */,
 				2842A1401BF7F1970001AEF8 /* WBDFilterViewController.m */,
+				2842A1441BF82CFE0001AEF8 /* WBDSearchProfileViewController.h */,
+				2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */,
 			);
 			name = "Side Screens";
 			sourceTree = "<group>";
@@ -210,6 +218,8 @@
 			children = (
 				2842A13B1BF7EB0D0001AEF8 /* WBDJSONFactory.m */,
 				2842A13D1BF7EB7C0001AEF8 /* WBDJSONFactory.h */,
+				2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */,
+				2842A1491BF830C60001AEF8 /* WBDMapMarkerFactory.h */,
 			);
 			name = Factories;
 			sourceTree = "<group>";
@@ -490,7 +500,9 @@
 				2842A1411BF7F1970001AEF8 /* WBDFilterViewController.m in Sources */,
 				2842A1241BF7AE280001AEF8 /* WBDMessagesViewController.m in Sources */,
 				2842A12B1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m in Sources */,
+				2842A1481BF830B00001AEF8 /* WBDMapMarkerFactory.m in Sources */,
 				2842A1331BF7D5F80001AEF8 /* WBDHomeViewController.m in Sources */,
+				2842A1461BF82CFE0001AEF8 /* WBDSearchProfileViewController.m in Sources */,
 				2842A13A1BF7E8D10001AEF8 /* WBDAWSCaller.m in Sources */,
 				2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */,
 				28A260841BF6FE420073C6BA /* main.m in Sources */,

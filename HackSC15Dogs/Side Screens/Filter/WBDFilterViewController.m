@@ -8,6 +8,8 @@
 
 #import "WBDFilterViewController.h"
 
+#import "WBDSearchProfileViewController.h"
+
 @interface WBDFilterViewController () <UISearchBarDelegate>
 @property (strong, nonatomic) UISlider *sliderSize;
 @property (strong, nonatomic) UISlider *sliderAge;
@@ -42,7 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.sliderSize = [[UISlider alloc] initWithFrame:CGRectMake(10, 225, self.view.frame.size.width - 40, 50)];
+    self.sliderSize = [[UISlider alloc] initWithFrame:CGRectMake(10, 125, self.view.frame.size.width - 40, 50)];
 
 //    UIImage *clearImage = [[UIImage imageNamed:@"searchBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(12, 12, 12, 12)];
 //    [self.sliderSize setMinimumTrackImage:clearImage forState:UIControlStateNormal];
@@ -54,7 +56,7 @@
     self.sliderSize.value = 2;
     [self.sliderSize addTarget:self action:@selector(sizeValueChanged) forControlEvents:UIControlEventValueChanged];
     
-    self.sliderAge = [[UISlider alloc] initWithFrame:CGRectMake(10, 350, self.view.frame.size.width - 40, 50)];
+    self.sliderAge = [[UISlider alloc] initWithFrame:CGRectMake(10, 250, self.view.frame.size.width - 40, 50)];
     self.sliderAge.minimumValueImage = [UIImage imageNamed:@"iconAgeMin.png"];
     self.sliderAge.maximumValueImage = [UIImage imageNamed:@"iconAgeMax.png"];
     self.sliderAge.maximumValue = 4;
@@ -71,6 +73,16 @@
     [self.searchBreedName resignFirstResponder];
     
     self.navigationItem.titleView = self.searchBreedName;
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(40, 300, 50, 25)];
+    [button addTarget:self action:@selector(searchPressed) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Search" forState:UIControlStateNormal];
+    
+    [self.view addSubview:button];
+}
+
+- (void) searchPressed{
+    [self.navigationController pushViewController:[[WBDSearchProfileViewController alloc] init] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
