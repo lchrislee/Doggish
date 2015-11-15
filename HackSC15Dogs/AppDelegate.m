@@ -12,6 +12,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "WBDMessagesViewController.h"
+#import "WBDMessagesViewControllerV2.h"
 #import "WBDDatesViewController.h"
 #import "WBDFavoritesViewController.h"
 #import "WBDHomeViewController.h"
@@ -38,6 +39,7 @@ NSString *const SubscriptionTopic = @"/topics/global";
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
     [self registerRemoteNotifications];
     [self startGCMStuff];
     [self setUpAws];
@@ -102,7 +104,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 
 - (UINavigationController *)makeMessagesController{
-    WBDMessagesViewController *messageView = [[WBDMessagesViewController alloc] init];
+    WBDMessagesViewControllerV2 *messageView = [[WBDMessagesViewControllerV2 alloc] init];
     messageView.title = @"Messages";
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:messageView];
