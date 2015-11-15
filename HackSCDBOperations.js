@@ -28,6 +28,13 @@ case 'read':
     ]
 }
 
+case 'read':
+{
+
+	"operation": "list",
+	"TableName": "MapMarker",
+}
+
 case 'update'
 {
 	"operation": "update",

@@ -366,6 +366,9 @@
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 3LHD4EH43J;
 						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};

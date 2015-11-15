@@ -10,4 +10,6 @@
 
 @interface WBDAWSCaller : NSObject
 
+- (void)getLocalMarkersInDictionary:(SEL)callBack;
+
 @end

@@ -9,8 +9,10 @@
 #import "WBDHomeViewController.h"
 #import <CoreLocation/CoreLocation.h>
 
+#import "WBDAWSCaller.h"
+
 @import GoogleMaps;
-@interface WBDHomeViewController ()
+@interface WBDHomeViewController () <GMSMapViewDelegate>
 @property (strong, nonatomic) UISegmentedControl *searchSwitcher;
 @property (strong, nonatomic) GMSMapView *mapGMSMapView;
 @property (strong, nonatomic) CLLocationManager * mapCLLocationManager;
@@ -20,6 +22,8 @@
 @implementation WBDHomeViewController{
     GMSMapView *mapView_;
 }
+
+static BOOL showMarkers = YES;
 
 -(void) locationSetup{
     self.mapCLLocationManager = [[CLLocationManager alloc] init];
@@ -51,9 +55,9 @@
 - (void)googleMapsSampleSetup{
     // Create a GMSCameraPosition that tells the map to display the
     // coordinate -33.86,151.20 at zoom level 6.
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:6];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:34.0203056
+                                                            longitude:-118.2886556
+                                                                 zoom:16];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
@@ -67,16 +71,32 @@
     self.mapGMSMapView.camera = camera;
     self.mapGMSMapView.myLocationEnabled = YES;
     
-    // Creates a marker in the center of the map.
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    marker.title = @"Sydney";
-    marker.snippet = @"Australia";
-    marker.map = self.mapGMSMapView;
-    
     [self.view addSubview:self.mapGMSMapView];
-    
     //http://stackoverflow.com/questions/15417811/cannot-put-a-google-maps-gmsmapview-in-a-subview-of-main-main-view
+}
+
+-(BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker{
+    return NO;
+}
+
+-(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker{
+    
+}
+
+- (void) addMarkers{
+    // Creates a marker in the center of the map.
+    GMSMarker *markerFirst = [[GMSMarker alloc] init];
+    markerFirst.position = CLLocationCoordinate2DMake(34.0204478, -118.2892725);
+    markerFirst.title = @"Fido";
+    markerFirst.snippet = @"heading over";
+    markerFirst.map = self.mapGMSMapView;
+
+    // Creates a marker in the center of the map.
+    GMSMarker *markerSecond = [[GMSMarker alloc] init];
+    markerSecond.position = CLLocationCoordinate2DMake(34.0206968, -118.2890257);
+    markerSecond.title = @"Molly";
+    markerSecond.snippet = @"playing";
+    markerSecond.map = self.mapGMSMapView;
 }
 
 - (void) segmentedSelected{
@@ -122,6 +142,22 @@
     [self.searchSwitcher addTarget:self action:@selector(segmentedSelected) forControlEvents:UIControlEventValueChanged];
     
     [self.view addSubview:self.searchSwitcher];
+
+//    WBDAWSCaller *caller = [[WBDAWSCaller alloc] init];
+//    [caller getLocalMarkersInDictionary:@selector(fillDictionaryWithDictionary:)];
+    if (showMarkers == YES){
+        [self addMarkers];
+    }
+    
+    if (showMarkers == NO)
+    {
+        showMarkers = YES;
+    }
+}
+
+- (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary{
+    NSLog(@"WORKS TO HERE");
+    NSLog(dictionary);
 }
 
 - (void)didReceiveMemoryWarning {

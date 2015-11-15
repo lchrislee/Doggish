@@ -10,4 +10,5 @@
 
 @interface WBDHomeViewController : UIViewController
 + (SEL)getFilterSelector;
+- (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary;
 @end
