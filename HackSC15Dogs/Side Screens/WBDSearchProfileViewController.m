@@ -7,6 +7,7 @@
 //
 
 #import "WBDSearchProfileViewController.h"
+#import "WBDAWSCaller.h"
 
 @interface WBDSearchProfileViewController ()
 @end
@@ -23,7 +24,8 @@
 }
 
 -(void)sendPush{
-    
+    WBDAWSCaller *caller = [[WBDAWSCaller alloc] init];
+    [caller pushNotifyUser];
 }
                               
 -(UIImage*)imageWithImage:(UIImage*)image

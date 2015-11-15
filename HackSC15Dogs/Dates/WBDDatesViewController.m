@@ -23,24 +23,42 @@
     return 1;
 }
 
+
+- (void) createNSDictionaryTestData{
+    NSDictionary* d = @{
+                        @"mainTitleKey" : @"Andy",
+                        @"secondaryTitleKey" : @"Hi there!",
+                        @"imageKey" : @"stockChatPicture",
+                        };
+
+    NSDictionary* d2 = @{
+                         @"mainTitleKey" : @"BAndy",
+                         @"secondaryTitleKey" : @"Hi there!",
+                         @"imageKey" : @"stockChatPicture",
+                         };
+    self.dates = [NSArray arrayWithObjects: d, d2, nil];
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Message Cell" forIndexPath:indexPath];
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Message Cell"];
     
     if (!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Message Cell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Message Cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.textLabel.text = [self.dates objectAtIndex:indexPath.row];
-    
+    NSDictionary *item = (NSDictionary *)[self.dates objectAtIndex:indexPath.row];
+    cell.textLabel.text = [item objectForKey:@"mainTitleKey"];
+    cell.detailTextLabel.text = [item objectForKey:@"secondaryTitleKey"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
+    UIImage *theImage = [UIImage imageWithContentsOfFile:path];
+    cell.imageView.image = theImage;
     return cell;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.dates addObject:@"Chicken"];
-    [self.dates addObject:@"Monkeys"];
-    [self.dates addObject:@"Yogurt"];
-    [self.dates addObject:@"Bananas"];
+    [self createNSDictionaryTestData];
     [self.view addSubview:self.table];
     [self.table reloadData];
 }
@@ -63,12 +81,19 @@
                                               style:UITableViewStylePlain];
         _table.delegate = self;
         _table.dataSource = self;
-        [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Message Cell"];
-        _table.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.origin.y,
-                                               self.navigationController.navigationBar.frame.size.height, 0, 0);
+        //[_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Message Cell"];
+        _table.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }
     
     return _table;
+}
+
+//Alternating background color of cells
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row%2 == 0) {
+        UIColor *altCellColor = [UIColor colorWithWhite:0.7 alpha:0.1];
+        cell.backgroundColor = altCellColor;
+    }
 }
 
 /*

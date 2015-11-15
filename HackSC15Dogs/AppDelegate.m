@@ -90,9 +90,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 
 - (UINavigationController *)makeDatesController{
-    WBDFilterViewController *dateView = [[WBDFilterViewController alloc] init];
+    WBDDatesViewController *dateView = [[WBDDatesViewController alloc] init];
     dateView.title = @"Dates";
-    
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dateView];
     navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Dates" image:[UIImage imageNamed:@"iconDateSmall.png"] tag:0];
     return navController;

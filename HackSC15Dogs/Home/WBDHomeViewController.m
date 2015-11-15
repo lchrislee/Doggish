@@ -8,7 +8,6 @@
 
 #import "WBDHomeViewController.h"
 #import <CoreLocation/CoreLocation.h>
-
 #import "WBDAWSCaller.h"
 #import "WBDSearchProfileViewController.h"
 #import "WBDFilterViewController.h"
@@ -30,6 +29,7 @@ static BOOL showMarkers = YES;
     self.mapCLLocationManager.delegate = self;
     //self.mapCLLocationManager.distanceFilter = 1.0f;
     self.mapCLLocationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    //user req, info plist, text ask user, delegate location manager
     [self.mapCLLocationManager requestLocation];
     //[self.mapCLLocationManager startUpdatingLocation];
 }
