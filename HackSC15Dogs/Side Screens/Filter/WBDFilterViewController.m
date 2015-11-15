@@ -7,7 +7,6 @@
 //
 
 #import "WBDFilterViewController.h"
-
 #import "WBDSearchProfileViewController.h"
 
 @interface WBDFilterViewController () <UISearchBarDelegate>

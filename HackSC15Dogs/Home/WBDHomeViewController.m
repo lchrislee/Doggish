@@ -30,6 +30,7 @@ static BOOL showMarkers = YES;
     self.mapCLLocationManager.delegate = self;
     //self.mapCLLocationManager.distanceFilter = 1.0f;
     self.mapCLLocationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    //user req, info plist, text ask user, delegate location manager
     [self.mapCLLocationManager requestLocation];
     //[self.mapCLLocationManager startUpdatingLocation];
 }
@@ -148,17 +149,19 @@ static BOOL showMarkers = YES;
     
     [self.view addSubview:self.searchSwitcher];
 
-//    WBDAWSCaller *caller = [[WBDAWSCaller alloc] init];
-//    [caller getLocalMarkersInDictionary:@selector(fillDictionaryWithDictionary:)];
-    if (showMarkers == YES){
-        [self addMarkers];
-    }
-    
-    if (showMarkers == NO)
-    {
-        showMarkers = YES;
-    }
-    [self.tabBarController setHidesBottomBarWhenPushed:YES];
+    WBDAWSCaller *caller = [[WBDAWSCaller alloc] init];
+    [caller getLocalMarkersInDictionary:@selector(fillDictionaryWithDictionary:)
+                   WBHomeViewController:(self)
+     ];
+//    if (showMarkers == YES){
+//        [self addMarkers];
+//    }
+//    
+//    if (showMarkers == NO)
+//    {
+//        showMarkers = YES;
+//    }
+//    [self.tabBarController setHidesBottomBarWhenPushed:YES];
 }
 
 - (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary{
