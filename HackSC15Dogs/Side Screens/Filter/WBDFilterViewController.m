@@ -47,10 +47,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.sliderSize = [[UISlider alloc] initWithFrame:CGRectMake(10, 125, self.view.frame.size.width - 40, 50)];
-
-//    UIImage *clearImage = [[UIImage imageNamed:@"searchBar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(12, 12, 12, 12)];
-//    [self.sliderSize setMinimumTrackImage:clearImage forState:UIControlStateNormal];
-//    [self.sliderSize setMaximumTrackImage:clearImage forState:UIControlStateNormal];
     
     self.sliderSize.minimumValueImage = [UIImage imageNamed:@"iconSizeMin.png"];
     self.sliderSize.maximumValueImage = [UIImage imageNamed:@"iconSizeMax.png"];

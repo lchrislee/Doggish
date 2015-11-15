@@ -11,19 +11,45 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-@interface WBDLoginScreenController ()
+@interface WBDLoginScreenController () <FBSDKLoginButtonDelegate>
 @property (strong, nonatomic) FBSDKLoginButton *loginButton;
 @end
 
 @implementation WBDLoginScreenController
 
 - (void) viewDidLoad{
-    self.loginButton = [[FBSDKLoginButton alloc] init];
-    self.loginButton.readPermissions = @[@"user_friends",@"public_profile"];
+    if (![FBSDKAccessToken currentAccessToken]){
+        NSLog(@"no access token");
+        self.loginButton = [[FBSDKLoginButton alloc] init];
+        self.loginButton.readPermissions = @[@"user_friends",@"public_profile"];
+        
+        self.loginButton.center = self.view.center;
+        
+        [self.view addSubview:self.loginButton];
+    }else{
+        NSLog(@"Access token");
+        [self transition];
+    }
+}
+
+- (void) loginButtonDidLogOut:(FBSDKLoginButton *)loginButton{
     
-    self.loginButton.center = self.view.center;
-    
-    [self.view addSubview:self.loginButton];
+}
+
+- (void) loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
+    if (!error){
+        NSLog(@"login good");
+        [self transition];
+    }
+    else{
+        NSLog(@"ERROR: %@", [error localizedDescription]);
+    }
+}
+
+- (void) transition{
+    NSLog(@"Transition");
+//    [self presentViewController:[[self.tabBar viewControllers] objectAtIndex:0] animated:YES completion:nil];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:[self.tabBar selectedViewController] animated:YES completion:nil];
 }
 
 @end

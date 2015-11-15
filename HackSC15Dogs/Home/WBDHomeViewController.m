@@ -11,6 +11,7 @@
 #import "WBDAWSCaller.h"
 #import "WBDSearchProfileViewController.h"
 #import "WBDFilterViewController.h"
+#import "WBDCreateWalkViewController.h"
 
 @import GoogleMaps;
 @interface WBDHomeViewController () <GMSMapViewDelegate>
@@ -166,7 +167,8 @@ static BOOL showMarkers = YES;
 }
 
 - (void)goOnWalk{
-    
+    self.tabBarController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:[[WBDCreateWalkViewController alloc] init] animated:YES];
 }
 
 - (void)changeToFilter{

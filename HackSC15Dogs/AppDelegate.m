@@ -16,8 +16,8 @@
 #import "WBDFavoritesViewController.h"
 #import "WBDHomeViewController.h"
 #import "WBDProfileViewController.h"
+#import "WBDLoginScreenController.h"
 
-#import "WBDFilterViewController.h"
 
 @import GoogleMaps;
 @interface AppDelegate ()
@@ -28,6 +28,7 @@
 @property(nonatomic, strong) NSString* registrationToken;
 @property(nonatomic, assign) BOOL subscribedToTopic;
 
+@property(strong, nonatomic) WBDLoginScreenController *loginScreen;
 @property(strong, nonatomic) UITabBarController *tabController;
 @end
 
@@ -57,6 +58,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                                            ];
     self.tabController.selectedIndex = 0;
     
+//    self.loginScreen = [[WBDLoginScreenController alloc] init];
+//    self.loginScreen.tabBar = self.tabController;
+//    self.window.rootViewController = self.loginScreen;
     self.window.rootViewController = self.tabController;
     
     [self.window makeKeyAndVisible];
@@ -108,7 +112,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 - (UINavigationController *)makeProfileController{
     WBDProfileViewController *profileView = [[WBDProfileViewController alloc] init];
-    profileView.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"iconProfileSmall.png"] tag:0];
+    profileView.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Your Dogs" image:[UIImage imageNamed:@"iconProfileSmall.png"] tag:0];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:profileView];
     return navController;
