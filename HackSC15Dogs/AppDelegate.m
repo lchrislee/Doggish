@@ -75,8 +75,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     homeView.title = @"Find Dogs";
     
     UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:homeView];
-    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Find Dogs" image:[UIImage imageNamed:@"iconHome.png"] tag:0];
-//    viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:homeView action:[WBDHomeViewController getFilterSelector]];
+    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage imageNamed:@"iconHomeNoText.png"] tag:0];
+
     return viewController;
 }
 
@@ -85,7 +85,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     favoritesView.title = @"Favorites";
     
     UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:favoritesView];
-    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[UIImage imageNamed:@"iconFavorite.png"] tag:0];
+    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[UIImage imageNamed:@"iconFavoriteSmall.png"] tag:0];
     return viewController;
 }
 
@@ -94,7 +94,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     dateView.title = @"Dates";
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dateView];
-    navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Dates" image:[UIImage imageNamed:@"iconDate.png"] tag:0];
+    navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Dates" image:[UIImage imageNamed:@"iconDateSmall.png"] tag:0];
     return navController;
 }
 
@@ -103,13 +103,13 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     messageView.title = @"Messages";
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:messageView];
-    navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Messages" image:[UIImage imageNamed:@"iconChat.png"] tag:0];
+    navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Messages" image:[UIImage imageNamed:@"iconChatSmall.png"] tag:0];
     return navController;
 }
 
 - (UINavigationController *)makeProfileController{
     WBDProfileViewController *profileView = [[WBDProfileViewController alloc] init];
-    profileView.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"iconProfile"] tag:0];
+    profileView.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"iconProfileSmall.png"] tag:0];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:profileView];
     return navController;

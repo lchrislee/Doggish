@@ -7,6 +7,9 @@
 //
 
 #import "WBDMessagesViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKLoginKit/FBSDKLoginManager.h>
 
 @interface WBDMessagesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) UITableView *table;
@@ -33,6 +36,27 @@
     cell.textLabel.text = [self.messages objectAtIndex:indexPath.row];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([FBSDKAccessToken currentAccessToken]){
+        
+    }else{
+        FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+        
+        [loginManager logInWithReadPermissions:@[@"public_profile", @"user_friends"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+            if (error){
+                NSLog(@"could not login");
+            }
+            else{
+                [self pullMessages];
+            }
+        }];
+    }
+}
+
+- (void) pullMessages{
+    NSLog(@"Pull messages!");
 }
 
 - (void)viewDidLoad {

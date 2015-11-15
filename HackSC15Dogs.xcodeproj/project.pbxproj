@@ -18,6 +18,7 @@
 		2842A1411BF7F1970001AEF8 /* WBDFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1401BF7F1970001AEF8 /* WBDFilterViewController.m */; };
 		2842A1461BF82CFE0001AEF8 /* WBDSearchProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */; };
 		2842A1481BF830B00001AEF8 /* WBDMapMarkerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */; };
+		2842A14F1BF85F140001AEF8 /* WBDCreateWalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */; };
 		28A260841BF6FE420073C6BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260831BF6FE420073C6BA /* main.m */; };
 		28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260861BF6FE420073C6BA /* AppDelegate.m */; };
 		28A2608D1BF6FE420073C6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A2608B1BF6FE420073C6BA /* Main.storyboard */; };
@@ -70,6 +71,8 @@
 		2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDSearchProfileViewController.m; path = "Side Screens/WBDSearchProfileViewController.m"; sourceTree = "<group>"; };
 		2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDMapMarkerFactory.m; path = Factories/WBDMapMarkerFactory.m; sourceTree = "<group>"; };
 		2842A1491BF830C60001AEF8 /* WBDMapMarkerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDMapMarkerFactory.h; path = Factories/WBDMapMarkerFactory.h; sourceTree = "<group>"; };
+		2842A14D1BF85F140001AEF8 /* WBDCreateWalkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDCreateWalkViewController.h; path = "Side Screens/WBDCreateWalkViewController.h"; sourceTree = "<group>"; };
+		2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDCreateWalkViewController.m; path = "Side Screens/WBDCreateWalkViewController.m"; sourceTree = "<group>"; };
 		28A2607F1BF6FE420073C6BA /* HackSC15Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackSC15Dogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A260831BF6FE420073C6BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		28A260851BF6FE420073C6BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -144,10 +147,9 @@
 		2842A11C1BF7AD400001AEF8 /* Side Screens */ = {
 			isa = PBXGroup;
 			children = (
-				2842A13F1BF7F1970001AEF8 /* WBDFilterViewController.h */,
-				2842A1401BF7F1970001AEF8 /* WBDFilterViewController.m */,
-				2842A1441BF82CFE0001AEF8 /* WBDSearchProfileViewController.h */,
-				2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */,
+				2842A1511BF85F2B0001AEF8 /* Filter View */,
+				2842A1521BF85F340001AEF8 /* Search Preview */,
+				2842A1501BF85F1E0001AEF8 /* Create Walk */,
 			);
 			name = "Side Screens";
 			sourceTree = "<group>";
@@ -222,6 +224,33 @@
 				2842A1491BF830C60001AEF8 /* WBDMapMarkerFactory.h */,
 			);
 			name = Factories;
+			sourceTree = "<group>";
+		};
+		2842A1501BF85F1E0001AEF8 /* Create Walk */ = {
+			isa = PBXGroup;
+			children = (
+				2842A14D1BF85F140001AEF8 /* WBDCreateWalkViewController.h */,
+				2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */,
+			);
+			name = "Create Walk";
+			sourceTree = "<group>";
+		};
+		2842A1511BF85F2B0001AEF8 /* Filter View */ = {
+			isa = PBXGroup;
+			children = (
+				2842A13F1BF7F1970001AEF8 /* WBDFilterViewController.h */,
+				2842A1401BF7F1970001AEF8 /* WBDFilterViewController.m */,
+			);
+			name = "Filter View";
+			sourceTree = "<group>";
+		};
+		2842A1521BF85F340001AEF8 /* Search Preview */ = {
+			isa = PBXGroup;
+			children = (
+				2842A1441BF82CFE0001AEF8 /* WBDSearchProfileViewController.h */,
+				2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */,
+			);
+			name = "Search Preview";
 			sourceTree = "<group>";
 		};
 		28A260761BF6FE420073C6BA = {
@@ -507,6 +536,7 @@
 				2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */,
 				28A260841BF6FE420073C6BA /* main.m in Sources */,
 				2842A1281BF7BA960001AEF8 /* WBDDatesViewController.m in Sources */,
+				2842A14F1BF85F140001AEF8 /* WBDCreateWalkViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

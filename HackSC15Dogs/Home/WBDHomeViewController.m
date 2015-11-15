@@ -11,6 +11,7 @@
 
 #import "WBDAWSCaller.h"
 #import "WBDSearchProfileViewController.h"
+#import "WBDFilterViewController.h"
 
 @import GoogleMaps;
 @interface WBDHomeViewController () <GMSMapViewDelegate>
@@ -20,9 +21,7 @@
 @property (strong, nonatomic) UICollectionView *featuredList;
 @end
 
-@implementation WBDHomeViewController{
-    GMSMapView *mapView_;
-}
+@implementation WBDHomeViewController
 
 static BOOL showMarkers = YES;
 
@@ -66,7 +65,7 @@ static BOOL showMarkers = YES;
     self.mapGMSMapView = [GMSMapView mapWithFrame:CGRectMake(0,
                                                              0,
                                                              screenWidth,
-                                                             screenHeight)
+                                                             screenHeight - self.navigationController.navigationBar.frame.size.height - self.searchSwitcher.frame.size.height)
                                            camera:camera];
     
     self.mapGMSMapView.camera = camera;
@@ -149,6 +148,10 @@ static BOOL showMarkers = YES;
     
     [self.view addSubview:self.searchSwitcher];
 
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(changeToFilter)];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"walkDog"] style:UIBarButtonItemStylePlain target:self action:@selector(goOnWalk)];
+    
 //    WBDAWSCaller *caller = [[WBDAWSCaller alloc] init];
 //    [caller getLocalMarkersInDictionary:@selector(fillDictionaryWithDictionary:)];
     if (showMarkers == YES){
@@ -160,6 +163,14 @@ static BOOL showMarkers = YES;
         showMarkers = YES;
     }
     [self.tabBarController setHidesBottomBarWhenPushed:YES];
+}
+
+- (void)goOnWalk{
+    
+}
+
+- (void)changeToFilter{
+    [self.navigationController pushViewController:[[WBDFilterViewController alloc] init] animated:YES];
 }
 
 - (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary{

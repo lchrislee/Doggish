@@ -10,10 +10,13 @@
 
 #import "WBDSearchProfileViewController.h"
 
-@interface WBDFilterViewController () <UISearchBarDelegate>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
+@interface WBDFilterViewController () <UISearchBarDelegate, FBSDKLoginButtonDelegate>
 @property (strong, nonatomic) UISlider *sliderSize;
 @property (strong, nonatomic) UISlider *sliderAge;
-
+@property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) UISearchBar *searchBreedName;
 @end
 
@@ -74,11 +77,12 @@
     
     self.navigationItem.titleView = self.searchBreedName;
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(40, 300, 50, 25)];
-    [button addTarget:self action:@selector(searchPressed) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Search" forState:UIControlStateNormal];
+    self.button = [[UIButton alloc] initWithFrame:CGRectMake(40, 300, 50, 25)];
+    self.button.backgroundColor = [UIColor colorWithRed:23 green:106 blue:117 alpha:0];
+    [self.button addTarget:self action:@selector(searchPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.button setTitle:@"Search" forState:UIControlStateNormal];
     
-    [self.view addSubview:button];
+    [self.view addSubview:self.button];
 }
 
 - (void) searchPressed{
