@@ -8,7 +8,6 @@
 
 #import "WBDHomeViewController.h"
 #import <CoreLocation/CoreLocation.h>
-
 #import "WBDAWSCaller.h"
 #import "WBDSearchProfileViewController.h"
 

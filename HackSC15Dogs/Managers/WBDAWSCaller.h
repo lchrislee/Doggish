@@ -11,5 +11,6 @@
 @interface WBDAWSCaller : NSObject
 
 - (void)getLocalMarkersInDictionary:(SEL)callBack;
+-(void) pushNotifyUser;
 
 @end
