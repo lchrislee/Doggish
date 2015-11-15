@@ -169,7 +169,9 @@ static BOOL showMarkers = YES;
     }
     [self.tabBarController setHidesBottomBarWhenPushed:YES];
 
-    [self showLogin];
+    if (![FBSDKAccessToken currentAccessToken]){
+        [self showLogin];
+    }
 }
 
 - (void)showLogin{
@@ -182,6 +184,7 @@ static BOOL showMarkers = YES;
 
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     loginButton.center = self.loginView.center;
+    loginButton.delegate = self;
     [self.loginView addSubview:loginButton];
 }
 
@@ -201,7 +204,7 @@ static BOOL showMarkers = YES;
         // conditionalExpression: "attribute_not_exist(ID)"
         // Item:{
         //  ID:"appID"}
-        NSMutableDictionary *item = @{@"ID": appID};
+        NSDictionary *item = @{@"ID": appID};
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:@"create" forKey:@"operation"];
         [dict setObject:@"User" forKey:@"TableName"];
@@ -221,6 +224,7 @@ static BOOL showMarkers = YES;
                 NSLog(@"Result: %@", task.result);
             }
             [self.loginView removeFromSuperview];
+            self.loginView = nil;
             return nil;
         }];
     }else{
