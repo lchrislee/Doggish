@@ -13,12 +13,18 @@
 #import "WBDFilterViewController.h"
 #import "WBDCreateWalkViewController.h"
 
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "AppDelegate.h"
+
+
 @import GoogleMaps;
-@interface WBDHomeViewController () <GMSMapViewDelegate>
+@interface WBDHomeViewController () <GMSMapViewDelegate, FBSDKLoginButtonDelegate>
 @property (strong, nonatomic) UISegmentedControl *searchSwitcher;
 @property (strong, nonatomic) GMSMapView *mapGMSMapView;
 @property (strong, nonatomic) CLLocationManager * mapCLLocationManager;
 @property (strong, nonatomic) UICollectionView *featuredList;
+@property (strong, nonatomic) UIView *loginView;
 @end
 
 @implementation WBDHomeViewController
@@ -152,9 +158,7 @@ static BOOL showMarkers = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(changeToFilter)];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"walkDog"] style:UIBarButtonItemStylePlain target:self action:@selector(goOnWalk)];
-    
-//    WBDAWSCaller *caller = [[WBDAWSCaller alloc] init];
-//    [caller getLocalMarkersInDictionary:@selector(fillDictionaryWithDictionary:)];
+
     if (showMarkers == YES){
         [self addMarkers];
     }
@@ -164,6 +168,69 @@ static BOOL showMarkers = YES;
         showMarkers = YES;
     }
     [self.tabBarController setHidesBottomBarWhenPushed:YES];
+
+    [self showLogin];
+}
+
+- (void)showLogin{
+    self.loginView = [[UIView alloc] init];
+    self.loginView.frame = self.view.frame;
+    [self.view addSubview:self.loginView];
+    [self.view bringSubviewToFront:self.loginView];
+
+    self.loginView.backgroundColor = [UIColor cyanColor];
+
+    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+    loginButton.center = self.loginView.center;
+    [self.loginView addSubview:loginButton];
+}
+
+- (void) loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
+    if (!error){
+
+        NSLog(@"not an error");
+        NSString * appID = [[FBSDKAccessToken currentAccessToken] appID];
+        [[NSUserDefaults standardUserDefaults] setValue:appID forKey:@"appID"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+        //check if user is in db already with conditional put
+
+        //create user
+        //{ operation: create
+        // tableName: User
+        // conditionalExpression: "attribute_not_exist(ID)"
+        // Item:{
+        //  ID:"appID"}
+        NSMutableDictionary *item = @{@"ID": appID};
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:@"create" forKey:@"operation"];
+        [dict setObject:@"User" forKey:@"TableName"];
+        [dict setObject:item forKey:@"Item"];
+        [dict setObject:@"attribute_not_exists(ID)" forKey:@"ConditionExpression"];
+
+        AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
+        [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
+                            JSONObject:dict] continueWithBlock:^id(AWSTask *task) {
+            if (task.error) {
+                NSLog(@"Error: %@", task.error);
+            }
+            if (task.exception) {
+                NSLog(@"Exception: %@", task.exception);
+            }
+            if (task.result) {
+                NSLog(@"Result: %@", task.result);
+            }
+            [self.loginView removeFromSuperview];
+            return nil;
+        }];
+    }else{
+        NSLog(@"else");
+    }
+}
+
+
+- (void) loginButtonDidLogOut:(FBSDKLoginButton *)loginButton{
+
 }
 
 - (void)goOnWalk{

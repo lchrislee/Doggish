@@ -185,6 +185,43 @@
 }
 
 - (void) startWalk{
+
+//    {
+//        "operation": "create",
+//        "TableName": "MapMarker",
+//        "Item": {
+//            "ID":
+//            "dognames":[],
+//            "lat": "",
+//            "long": "",
+//            "endTime":"",
+//        }
+//    }
+
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+
+    [dict setObject:@"create" forKey:@"operation"];
+    [dict setObject:@"MapMarker" forKey:@"TableName"];
+
+    NSMutableArray *chosenDogs = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [self.dogs count]; ++i){
+        NSIndexPath *index = [[NSIndexPath alloc] initWithIndex:i];
+        UITableViewCell *cell = [self.table cellForRowAtIndexPath:index];
+
+        if (cell.accessoryType == UITableViewCellAccessoryCheckmark){
+            [chosenDogs addObject:cell.textLabel.text];
+        }
+    }
+
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm"];
+    NSDate *todaysDate;
+    todaysDate = [NSDate date];
+    NSLog(@"Todays date is %@",[formatter stringFromDate:todaysDate]);
+    NSString * stringDate = [formatter stringFromDate:todaysDate];
+
+
     AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
     [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
                         JSONObject:@{/*TODO CHANGE THIS*/}] continueWithBlock:^id(AWSTask *task) {
