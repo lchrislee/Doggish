@@ -24,7 +24,6 @@
 -(void) ageValueChanged{
     int bottom = self.sliderAge.value;
     int top = self.sliderAge.value + 0.5;
-    
     if (top == bottom){
         [self.sliderAge setValue:bottom animated:YES];
     }else{

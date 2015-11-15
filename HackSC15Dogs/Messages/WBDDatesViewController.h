@@ -1,5 +1,5 @@
 //
-//  WBDDatesViewController.h
+//  WBDMessagesViewController.h
 //  HackSC15Dogs
 //
 //  Created by abc on 11/14/15.

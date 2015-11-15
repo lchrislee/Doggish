@@ -24,6 +24,7 @@
     self.loginButton.center = self.view.center;
     
     [self.view addSubview:self.loginButton];
+
 }
 
 @end

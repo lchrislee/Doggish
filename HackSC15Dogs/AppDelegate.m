@@ -37,6 +37,7 @@ NSString *const SubscriptionTopic = @"/topics/global";
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
     [self registerRemoteNotifications];
     [self startGCMStuff];
     [self setUpAws];
