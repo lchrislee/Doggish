@@ -3,6 +3,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -22,7 +25,130 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgS-sm-e9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="367"/>
+            <point key="canvasLocation" x="-546" y="374.25"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Fgg-K5-AZS">
+            <objects>
+                <viewController id="wMf-JN-XTz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IJG-Fe-fb3"/>
+                        <viewControllerLayoutGuide type="bottom" id="ERV-Ff-EwT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="T8I-RU-2Zf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fcd-8J-Jpq">
+                                <rect key="frame" x="0.0" y="-216" width="320" height="216"/>
+                                <animations/>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="100" y="195" width="200" height="80"/>
+                                </variation>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minutes" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9l-bD-dbf">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="308" y="224" width="72" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out for:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n50-Xh-Xlw">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="iar-Hs-rxr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="iar-Hs-rxr"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="iar-Hs-rxr"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yho-mM-uAz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <animations/>
+                                <items>
+                                    <navigationItem title="Walk" id="YCD-w8-yOA">
+                                        <barButtonItem key="backBarButtonItem" title="Home" id="b1a-Lt-cmg"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Start" id="i7L-bj-SZn"/>
+                                    </navigationItem>
+                                </items>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
+                                </variation>
+                            </navigationBar>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="A9l-bD-dbf" firstAttribute="leading" secondItem="Fcd-8J-Jpq" secondAttribute="trailing" constant="8" id="0Lm-ea-CCo"/>
+                            <constraint firstItem="Fcd-8J-Jpq" firstAttribute="leading" secondItem="n50-Xh-Xlw" secondAttribute="trailing" constant="8" id="7z8-hW-VU3"/>
+                            <constraint firstItem="ERV-Ff-EwT" firstAttribute="top" secondItem="Fcd-8J-Jpq" secondAttribute="bottom" constant="525" id="BEN-Ot-8Vf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="A9l-bD-dbf" secondAttribute="trailing" id="Cuc-L3-7ki"/>
+                            <constraint firstItem="n50-Xh-Xlw" firstAttribute="baseline" secondItem="A9l-bD-dbf" secondAttribute="baseline" id="K5Y-4f-nCc"/>
+                            <constraint firstItem="n50-Xh-Xlw" firstAttribute="top" secondItem="IJG-Fe-fb3" secondAttribute="bottom" constant="204" id="Oxe-2I-IMx"/>
+                            <constraint firstItem="Fcd-8J-Jpq" firstAttribute="centerY" secondItem="n50-Xh-Xlw" secondAttribute="centerY" id="SLw-rB-td8"/>
+                            <constraint firstItem="A9l-bD-dbf" firstAttribute="baseline" secondItem="n50-Xh-Xlw" secondAttribute="firstBaseline" id="SRJ-0R-4mc"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="n50-Xh-Xlw" secondAttribute="leading" id="Sah-oF-YpW"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Fcd-8J-Jpq"/>
+                                <exclude reference="A9l-bD-dbf"/>
+                                <exclude reference="n50-Xh-Xlw"/>
+                                <exclude reference="Yho-mM-uAz"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="BEN-Ot-8Vf"/>
+                                <exclude reference="7z8-hW-VU3"/>
+                                <exclude reference="SLw-rB-td8"/>
+                                <exclude reference="0Lm-ea-CCo"/>
+                                <exclude reference="Cuc-L3-7ki"/>
+                                <exclude reference="SRJ-0R-4mc"/>
+                                <exclude reference="K5Y-4f-nCc"/>
+                                <exclude reference="Oxe-2I-IMx"/>
+                                <exclude reference="Sah-oF-YpW"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Fcd-8J-Jpq"/>
+                                <include reference="A9l-bD-dbf"/>
+                                <include reference="n50-Xh-Xlw"/>
+                                <include reference="Yho-mM-uAz"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="BEN-Ot-8Vf"/>
+                                <include reference="7z8-hW-VU3"/>
+                                <include reference="SLw-rB-td8"/>
+                                <include reference="0Lm-ea-CCo"/>
+                                <include reference="Cuc-L3-7ki"/>
+                                <include reference="SRJ-0R-4mc"/>
+                                <include reference="K5Y-4f-nCc"/>
+                                <include reference="Oxe-2I-IMx"/>
+                                <include reference="Sah-oF-YpW"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="timePicker" destination="Fcd-8J-Jpq" id="igI-fg-JY4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CgL-sO-Rx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="837" y="366.75"/>
         </scene>
     </scenes>
 </document>

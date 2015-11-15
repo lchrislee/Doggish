@@ -19,8 +19,8 @@
 		2842A1481BF830B00001AEF8 /* WBDMapMarkerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */; };
 		2842A14F1BF85F140001AEF8 /* WBDCreateWalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */; };
 		2842A1551BF871C00001AEF8 /* WBDLoginScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1541BF871C00001AEF8 /* WBDLoginScreenController.m */; };
-		287894921BF8872200BF3122 /* datesScreenBlurred.png in Resources */ = {isa = PBXBuildFile; fileRef = 287894911BF8872200BF3122 /* datesScreenBlurred.png */; };
-		287894981BF893CA00BF3122 /* WBDMessagesViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 287894971BF893CA00BF3122 /* WBDMessagesViewControllerV2.m */; };
+		2842A1591BF87B330001AEF8 /* WBDAddDogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1581BF87B330001AEF8 /* WBDAddDogViewController.m */; };
+		287894A61BF8AB2E00BF3122 /* WBDMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287894A51BF8AB2E00BF3122 /* WBDMessagesViewController.m */; };
 		28A260841BF6FE420073C6BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260831BF6FE420073C6BA /* main.m */; };
 		28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260861BF6FE420073C6BA /* AppDelegate.m */; };
 		28A2608D1BF6FE420073C6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A2608B1BF6FE420073C6BA /* Main.storyboard */; };
@@ -75,9 +75,10 @@
 		2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDCreateWalkViewController.m; path = "Side Screens/WBDCreateWalkViewController.m"; sourceTree = "<group>"; };
 		2842A1531BF871C00001AEF8 /* WBDLoginScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDLoginScreenController.h; path = WBDLoginScreenController/WBDLoginScreenController.h; sourceTree = "<group>"; };
 		2842A1541BF871C00001AEF8 /* WBDLoginScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDLoginScreenController.m; path = WBDLoginScreenController/WBDLoginScreenController.m; sourceTree = "<group>"; };
-		287894911BF8872200BF3122 /* datesScreenBlurred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = datesScreenBlurred.png; sourceTree = "<group>"; };
-		287894961BF893CA00BF3122 /* WBDMessagesViewControllerV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBDMessagesViewControllerV2.h; sourceTree = "<group>"; };
-		287894971BF893CA00BF3122 /* WBDMessagesViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBDMessagesViewControllerV2.m; sourceTree = "<group>"; };
+		2842A1571BF87B320001AEF8 /* WBDAddDogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDAddDogViewController.h; path = "Side Screens/Add Dog/WBDAddDogViewController.h"; sourceTree = "<group>"; };
+		2842A1581BF87B330001AEF8 /* WBDAddDogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDAddDogViewController.m; path = "Side Screens/Add Dog/WBDAddDogViewController.m"; sourceTree = "<group>"; };
+		287894A41BF8AB2E00BF3122 /* WBDMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDMessagesViewController.h; path = Messages/WBDMessagesViewController.h; sourceTree = "<group>"; };
+		287894A51BF8AB2E00BF3122 /* WBDMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDMessagesViewController.m; path = Messages/WBDMessagesViewController.m; sourceTree = "<group>"; };
 		28A2607F1BF6FE420073C6BA /* HackSC15Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackSC15Dogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A260831BF6FE420073C6BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		28A260851BF6FE420073C6BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -157,6 +158,7 @@
 				2842A1501BF85F1E0001AEF8 /* Create Walk */,
 				2842A1531BF871C00001AEF8 /* WBDLoginScreenController.h */,
 				2842A1541BF871C00001AEF8 /* WBDLoginScreenController.m */,
+				2842A15A1BF87B360001AEF8 /* Add Dog */,
 			);
 			name = "Side Screens";
 			sourceTree = "<group>";
@@ -191,7 +193,6 @@
 		2842A1201BF7AD5C0001AEF8 /* Dates */ = {
 			isa = PBXGroup;
 			children = (
-				287894911BF8872200BF3122 /* datesScreenBlurred.png */,
 				2842A1221BF7AE280001AEF8 /* WBDDatesViewController.h */,
 				2842A1231BF7AE280001AEF8 /* WBDDatesViewController.m */,
 			);
@@ -201,8 +202,8 @@
 		2842A1211BF7AD610001AEF8 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
-				287894961BF893CA00BF3122 /* WBDMessagesViewControllerV2.h */,
-				287894971BF893CA00BF3122 /* WBDMessagesViewControllerV2.m */,
+				287894A41BF8AB2E00BF3122 /* WBDMessagesViewController.h */,
+				287894A51BF8AB2E00BF3122 /* WBDMessagesViewController.m */,
 			);
 			name = Messages;
 			sourceTree = "<group>";
@@ -259,6 +260,15 @@
 				2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */,
 			);
 			name = "Search Preview";
+			sourceTree = "<group>";
+		};
+		2842A15A1BF87B360001AEF8 /* Add Dog */ = {
+			isa = PBXGroup;
+			children = (
+				2842A1571BF87B320001AEF8 /* WBDAddDogViewController.h */,
+				2842A1581BF87B330001AEF8 /* WBDAddDogViewController.m */,
+			);
+			name = "Add Dog";
 			sourceTree = "<group>";
 		};
 		28A260761BF6FE420073C6BA = {
@@ -459,7 +469,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				287894921BF8872200BF3122 /* datesScreenBlurred.png in Resources */,
 				28A260921BF6FE420073C6BA /* LaunchScreen.storyboard in Resources */,
 				2842A1171BF70B280001AEF8 /* GoogleService-Info.plist in Resources */,
 				28A2608F1BF6FE420073C6BA /* Assets.xcassets in Resources */,
@@ -537,6 +546,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2842A13C1BF7EB0D0001AEF8 /* WBDJSONFactory.m in Sources */,
+				2842A1591BF87B330001AEF8 /* WBDAddDogViewController.m in Sources */,
 				28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */,
 				2842A1411BF7F1970001AEF8 /* WBDFilterViewController.m in Sources */,
 				2842A1551BF871C00001AEF8 /* WBDLoginScreenController.m in Sources */,
@@ -548,8 +558,8 @@
 				2842A13A1BF7E8D10001AEF8 /* WBDAWSCaller.m in Sources */,
 				2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */,
 				28A260841BF6FE420073C6BA /* main.m in Sources */,
+				287894A61BF8AB2E00BF3122 /* WBDMessagesViewController.m in Sources */,
 				2842A14F1BF85F140001AEF8 /* WBDCreateWalkViewController.m in Sources */,
-				287894981BF893CA00BF3122 /* WBDMessagesViewControllerV2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

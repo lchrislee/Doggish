@@ -11,12 +11,13 @@
 #import <Google/CloudMessaging.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-#import "WBDMessagesViewControllerV2.h"
+#import "WBDMessagesViewController.h"
 #import "WBDDatesViewController.h"
 #import "WBDFavoritesViewController.h"
 #import "WBDHomeViewController.h"
 #import "WBDProfileViewController.h"
-#import "WBDFilterViewController.h"
+#import "WBDLoginScreenController.h"
+
 
 @import GoogleMaps;
 
@@ -27,7 +28,6 @@
 @property(nonatomic, assign) BOOL connectedToGCM;
 @property(nonatomic, strong) NSString* registrationToken;
 @property(nonatomic, assign) BOOL subscribedToTopic;
-
 @property(strong, nonatomic) UITabBarController *tabController;
 @end
 
@@ -58,6 +58,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                                            ];
     self.tabController.selectedIndex = 0;
     
+//    self.loginScreen = [[WBDLoginScreenController alloc] init];
+//    self.loginScreen.tabBar = self.tabController;
+//    self.window.rootViewController = self.loginScreen;
     self.window.rootViewController = self.tabController;
     
     [self.window makeKeyAndVisible];
@@ -99,7 +102,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 
 - (UINavigationController *)makeMessagesController{
-    WBDMessagesViewControllerV2 *messageView = [[WBDMessagesViewControllerV2 alloc] init];
+    WBDMessagesViewController *messageView = [[WBDMessagesViewController alloc] init];
     messageView.title = @"Messages";
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:messageView];
@@ -109,7 +112,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 - (UINavigationController *)makeProfileController{
     WBDProfileViewController *profileView = [[WBDProfileViewController alloc] init];
-    profileView.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"iconProfileSmall.png"] tag:0];
+    profileView.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Your Dogs" image:[UIImage imageNamed:@"iconProfileSmall.png"] tag:0];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:profileView];
     return navController;

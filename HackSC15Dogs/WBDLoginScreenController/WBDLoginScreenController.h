@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WBDLoginScreenController : UIViewController
-
+@property (weak, nonatomic) UITabBarController *tabBar;
 @end

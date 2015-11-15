@@ -9,15 +9,58 @@
 #import "WBDProfileViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-@interface WBDProfileViewController ()
 
+#import "WBDAddDogViewController.h"
+@interface WBDProfileViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) UITableView *table;
+@property (strong, nonatomic) NSMutableDictionary *dogs;
 @end
 
 @implementation WBDProfileViewController
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Number of rows is the number of time zones in the region for the specified section.
+    return [self.dogs count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //reusing
+    //NSIndexpath = describe section and row
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Dog Cell"];
+    //see if there is a cell we can reuse
+    
+    if (cell == nil) {
+        //if no identifier, create one
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Dog Cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    // TODO FILL CELL
+    return cell;
+}
+
+//Alternating background color of cells
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row%2 == 0) {
+        UIColor *altCellColor = [UIColor colorWithWhite:0.7 alpha:0.1];
+        cell.backgroundColor = altCellColor;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDog)];
+    self.navigationItem.title = @"Your Dogs";
+    self.table = [[UITableView alloc] init];
+    self.table.contentInset = UIEdgeInsetsMake(0, self.navigationController.navigationBar.frame.size.height, 0, 0);
+    [self.view addSubview: self.table];
+
     [self testFacebookLogin];
 }
 
@@ -27,6 +70,10 @@
     // request to see friends
     loginButton.readPermissions = @[@"user_friends"];
     [self.view addSubview:loginButton];
+}
+
+- (void) addDog{
+    [self.navigationController pushViewController:[[WBDAddDogViewController alloc] init] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
