@@ -15,6 +15,9 @@
 #import "WBDDatesViewController.h"
 #import "WBDFavoritesViewController.h"
 #import "WBDHomeViewController.h"
+#import "WBDProfileViewController.h"
+
+#import "WBDFilterViewController.h"
 
 @import GoogleMaps;
 @interface AppDelegate ()
@@ -46,10 +49,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.tabController = [[UITabBarController alloc] init];
     self.tabController.hidesBottomBarWhenPushed = NO;
     
-    self.tabController.viewControllers = @[[self makeFavoritesController],
-                                           [self makeHomeController],
+    self.tabController.viewControllers = @[[self makeHomeController],
                                            [self makeMessagesController],
-                                           [self makeDatesController]
+                                           [self makeDatesController],
+                                           [self makeFavoritesController],
+                                           [self makeProfileController]
                                            ];
     self.tabController.selectedIndex = 0;
     
@@ -72,7 +76,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:homeView];
     viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Find Dogs" image:[UIImage imageNamed:@"iconHome.png"] tag:0];
-//    viewController.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:homeView action:[WBDHomeViewController getFilterSelector]]];
+//    viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:homeView action:[WBDHomeViewController getFilterSelector]];
     return viewController;
 }
 
@@ -86,7 +90,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 }
 
 - (UINavigationController *)makeDatesController{
-    WBDDatesViewController *dateView = [[WBDDatesViewController alloc] init];
+    WBDFilterViewController *dateView = [[WBDFilterViewController alloc] init];
     dateView.title = @"Dates";
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dateView];
@@ -100,6 +104,14 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:messageView];
     navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Messages" image:[UIImage imageNamed:@"iconChat.png"] tag:0];
+    return navController;
+}
+
+- (UINavigationController *)makeProfileController{
+    WBDProfileViewController *profileView = [[WBDProfileViewController alloc] init];
+    profileView.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"iconProfile"] tag:0];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:profileView];
     return navController;
 }
 
