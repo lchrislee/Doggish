@@ -40,7 +40,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self registerRemoteNotifications];
     [self startGCMStuff];
     [self setUpAws];
-    [GMSServices provideAPIKey:@"AIzaSyCjXLKN4rzvyXk87PksMiPn5OJBESEAp6E"];
+    [GMSServices provideAPIKey:@"AIzaSyAw8i7Mc0eOFCIFKUdihD5NQqaSNz7WEyo"];
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

@@ -44,6 +44,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error{
+    NSLog( @"could not find location");
     NSLog( error.localizedDescription );
 }
 

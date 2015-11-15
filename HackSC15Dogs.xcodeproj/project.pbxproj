@@ -640,7 +640,7 @@
 				);
 				INFOPLIST_FILE = HackSC15Dogs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wannabedev.HackSC15Dogs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.hackSC15v3R;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -660,7 +660,7 @@
 				);
 				INFOPLIST_FILE = HackSC15Dogs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wannabedev.HackSC15Dogs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.hackSC15v3R;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
