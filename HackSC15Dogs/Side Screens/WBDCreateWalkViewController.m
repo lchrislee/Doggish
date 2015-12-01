@@ -63,13 +63,18 @@
                                                             longitude:-118.2886556
                                                                  zoom:16];
     
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, self.timePicker.frame.origin.y + self.timePicker.frame.size.height + 2, self.view.frame.size.width - 20, 15)];
+    label.text = @"Enter your destination:";
+    
+    [self.view addSubview:label];
+    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
     self.mapGMSMapView = [GMSMapView mapWithFrame:CGRectMake(10,
-                                                             self.timePicker.frame.size.height + self.timePicker.frame.origin.y,
+                                                             label.frame.size.height + label.frame.origin.y + 5,
                                                              screenWidth - 20,
-                                                             screenHeight - (self.timePicker.frame.origin.y + self.timePicker.frame.size.height))
+                                                             screenHeight - (label.frame.origin.y + label.frame.size.height ))
                                            camera:camera];
     
     self.mapGMSMapView.camera = camera;
@@ -222,24 +227,24 @@
     NSString * stringDate = [formatter stringFromDate:todaysDate];
 
 
-    AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
-    [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
-                        JSONObject:@{/*TODO CHANGE THIS*/}] continueWithBlock:^id(AWSTask *task) {
-        if (task.error) {
-            NSLog(@"Error: %@", task.error);
-        }
-        if (task.exception) {
-            NSLog(@"Exception: %@", task.exception);
-        }
-        if (task.result) {
-            NSLog(@"Result: %@", task.result);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.tabBarController.hidesBottomBarWhenPushed = NO;
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }
-        return nil;
-    }];
+//    AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
+//    [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
+//                        JSONObject:@{/*TODO CHANGE THIS*/}] continueWithBlock:^id(AWSTask *task) {
+//        if (task.error) {
+//            NSLog(@"Error: %@", task.error);
+//        }
+//        if (task.exception) {
+//            NSLog(@"Exception: %@", task.exception);
+//        }
+//        if (task.result) {
+//            NSLog(@"Result: %@", task.result);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                self.tabBarController.hidesBottomBarWhenPushed = NO;
+//                [self.navigationController popViewControllerAnimated:YES];
+//            });
+//        }
+//        return nil;
+//    }];
 
 }
 

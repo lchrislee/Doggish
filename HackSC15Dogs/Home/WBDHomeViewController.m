@@ -31,8 +31,17 @@
 
 static BOOL showMarkers = YES;
 
+- (void )viewWillAppear:(BOOL)animated{
+    if ([FBSDKAccessToken currentAccessToken]){
+        [self.tabBarController.tabBar setHidden:NO];
+    }else{
+        [self.tabBarController.tabBar setHidden:YES];
+    }
+}
+
 -(void) locationSetup{
     self.mapCLLocationManager = [[CLLocationManager alloc] init];
+    [self.mapCLLocationManager requestWhenInUseAuthorization];
     self.mapCLLocationManager.delegate = self;
     //self.mapCLLocationManager.distanceFilter = 1.0f;
     self.mapCLLocationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
@@ -56,7 +65,6 @@ static BOOL showMarkers = YES;
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error{
     NSLog( @"could not find location");
-    NSLog( error.localizedDescription );
 }
 
 - (void)googleMapsSampleSetup{
@@ -133,14 +141,6 @@ static BOOL showMarkers = YES;
     }
 }
 
-+ (SEL)getFilterSelector{
-    return @selector(filterPressed);
-}
-
-- (void)filterPressed{
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -148,14 +148,14 @@ static BOOL showMarkers = YES;
     [self locationSetup];
     [self googleMapsSampleSetup];
     
-    self.searchSwitcher = [[UISegmentedControl alloc] initWithItems:@[@"Out and about", @"Featured"] ];
-    self.searchSwitcher.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, 25);
-    self.searchSwitcher.selectedSegmentIndex = 0;
-    [self.searchSwitcher addTarget:self action:@selector(segmentedSelected) forControlEvents:UIControlEventValueChanged];
-    
-    [self.view addSubview:self.searchSwitcher];
+//    self.searchSwitcher = [[UISegmentedControl alloc] initWithItems:@[@"Out and about", @"Featured"] ];
+//    self.searchSwitcher.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, 25);
+//    self.searchSwitcher.selectedSegmentIndex = 0;
+//    [self.searchSwitcher addTarget:self action:@selector(segmentedSelected) forControlEvents:UIControlEventValueChanged];
+//    
+//    [self.view addSubview:self.searchSwitcher];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(changeToFilter)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconSearch.png"] style:UIBarButtonItemStylePlain target:self action:@selector(changeToFilter)];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"walkDog"] style:UIBarButtonItemStylePlain target:self action:@selector(goOnWalk)];
 
@@ -167,14 +167,18 @@ static BOOL showMarkers = YES;
     {
         showMarkers = YES;
     }
-    [self.tabBarController setHidesBottomBarWhenPushed:YES];
+}
 
+- (void) viewDidAppear:(BOOL)animated{
     if (![FBSDKAccessToken currentAccessToken]){
         [self showLogin];
     }
 }
 
 - (void)showLogin{
+    [self.tabBarController.tabBar setHidden:YES];
+    [self.navigationController.navigationBar setHidden:YES];
+    
     self.loginView = [[UIView alloc] init];
     self.loginView.frame = self.view.frame;
     [self.view addSubview:self.loginView];
@@ -225,6 +229,8 @@ static BOOL showMarkers = YES;
             }
             [self.loginView removeFromSuperview];
             self.loginView = nil;
+            [self.tabBarController.tabBar setHidden:NO];
+            [self.navigationController.navigationBar setHidden:NO];
             return nil;
         }];
     }else{
@@ -238,11 +244,12 @@ static BOOL showMarkers = YES;
 }
 
 - (void)goOnWalk{
-    self.tabBarController.hidesBottomBarWhenPushed = YES;
+    [self.tabBarController.tabBar setHidden:YES];
     [self.navigationController pushViewController:[[WBDCreateWalkViewController alloc] init] animated:YES];
 }
 
 - (void)changeToFilter{
+    [self.tabBarController.tabBar setHidden:YES];
     [self.navigationController pushViewController:[[WBDFilterViewController alloc] init] animated:YES];
 }
 

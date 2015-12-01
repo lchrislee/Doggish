@@ -22,7 +22,7 @@
 //    UIImage *theImage = [UIImage imageWithContentsOfFile:path];
 
     UIImageView *image =[[UIImageView alloc] initWithFrame:self.view.frame];
-    image.image = [UIImage imageNamed:@"datesScreenBlurred"];
+    image.image = [UIImage imageNamed:@"playDatesPreview"];
     [self.view addSubview:image];
 
 }

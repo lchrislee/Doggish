@@ -20,13 +20,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.typeSelect = [[UISegmentedControl alloc] initWithItems:@[@"friends", @"dogs"]];
-    self.typeSelect.selectedSegmentIndex = 0;
-    self.typeSelect.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, 25);
-    [self.view addSubview:self.typeSelect];
+//    self.typeSelect = [[UISegmentedControl alloc] initWithItems:@[@"friends", @"dogs"]];
+//    self.typeSelect.selectedSegmentIndex = 0;
+//    self.typeSelect.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, 25);
+//    [self.view addSubview:self.typeSelect];
 
-    [self sendPush];
+//    [self sendPush];
     //[self createButton];
+    [self.view addSubview:[[UIImageView alloc] initWithImage:[self imageWithImage:[UIImage imageNamed:@"sampleSearchResult.png"] scaledToSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]]];
+}
+
+-(UIImage*)imageWithImage:(UIImage*)image
+             scaledToSize:(CGSize)newsize{
+    UIGraphicsBeginImageContext(newsize);
+    [image drawInRect:CGRectMake(0, 0, newsize.width, newsize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 - (void)didReceiveMemoryWarning {

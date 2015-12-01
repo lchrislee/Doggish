@@ -22,6 +22,10 @@
 
 @implementation WBDAddDogViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self.tabBarController.tabBar setHidden:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -63,12 +67,14 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.backgroundColor = [UIColor blackColor];
     [button setTitle:@"Add image" forState:UIControlStateNormal];
-    button.center = CGPointMake(150, self.navigationController.navigationBar.frame.size.height + 30);
+    button.frame = CGRectMake(150, self.navigationController.navigationBar.frame.size.height + 30, 100, 100);
     [button addTarget:self action:@selector(showCamera) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     [self.view bringSubviewToFront:button];
     
     [self.view addSubview:self.image];
+    
+    [self addImagePicker];
 }
 
 - (void) saveDog{
@@ -124,7 +130,8 @@
 }
 
 - (void) showCamera{
-    [self.navigationController pushViewController:self.imagePicker animated:YES];
+//    [self.navigationController pushViewController:self.imagePicker animated:YES];
+    [self.imagePicker takePicture];
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
@@ -144,6 +151,8 @@
     
     // Save the new image (original or edited) to the Camera Roll
     UIImageWriteToSavedPhotosAlbum (imageToSave, nil, nil , nil);
+    
+    self.image.image = imageToSave;
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     picker = nil;

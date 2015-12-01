@@ -32,7 +32,6 @@
         if (task.result) {
             NSLog(@"Result: %@", task.result);
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSError *error;
                 NSMutableDictionary *result = task.result;
 //                NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:task.result options:NSJSONReadingMutableContainers error:&error];
                 [controller performSelector:callBack withObject: result];
@@ -75,7 +74,7 @@
 
     NSDictionary *notifAndToDictionary =
     [NSDictionary dictionaryWithObjectsAndKeys: innerDictionary, @"notification",
-     @"l63HB_bDO0Q:APA91bEv4EO5lr9quvHVtaGVZ3ooRbUC-DKo57kKWujFyVmeLlHUO2hsf6cYJKjSsaqzWEWPgFd7LhoEuY9losCRahAdFGea2_DwTPasT7zYp1S4UeotHSD8m8NyhE7nOX4QkJUe9Ivx", @"to",
+@"mYrEb_jlvNY:APA91bFl59k38uziBOU2Hzs4REGK49BbE4_ev4fGNC1k6MRczTsk_MBx_PookVFk8erkBWbtawAIoReglmn-_FyW09nBKRmZfvLuw5kVwkJD5uRpquag-kcW5CxW2YeiRFHW2ZpLDA59", @"to",
      nil];
 
     NSDictionary* innerHeadDictionary =
@@ -106,8 +105,6 @@
             NSLog(@"Result: %@", task.result);
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSError *error;
-                NSMutableDictionary *result = task.result;
                 //                NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:task.result options:NSJSONReadingMutableContainers error:&error];
             });
         }

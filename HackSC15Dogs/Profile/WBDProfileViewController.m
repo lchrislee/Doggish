@@ -52,6 +52,11 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self.tabBarController.tabBar setHidden:NO];
+    [self testFacebookLogin];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -61,8 +66,6 @@
     self.table = [[UITableView alloc] init];
     self.table.contentInset = UIEdgeInsetsMake(0, self.navigationController.navigationBar.frame.size.height, 0, 0);
     [self.view addSubview: self.table];
-    
-    [self testFacebookLogin];
 }
 
 -(void) testFacebookLogin{
@@ -74,6 +77,12 @@
 }
 
 - (void) addDog{
+    for (UIView *v in [self.view subviews]){
+        if ([v isKindOfClass:[FBSDKLoginButton class]]){
+            [v removeFromSuperview];
+        }
+    }
+    
     [self.navigationController pushViewController:[[WBDAddDogViewController alloc] init] animated:YES];
 }
 
