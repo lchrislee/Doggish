@@ -7,7 +7,7 @@
 //
 
 #import "WBDSearchProfileViewController.h"
-#import "WBDAWSCaller.h"
+//#import "WBDAWSCaller.h"
 
 @interface WBDSearchProfileViewController ()
 @end
@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     UIImage *image = [UIImage imageNamed:@"sampleProfileScreen.png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[self imageWithImage:image scaledToSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height)]];
@@ -24,8 +25,8 @@
 }
 
 -(void)sendPush{
-    WBDAWSCaller *caller = [[WBDAWSCaller alloc] init];
-    [caller pushNotifyUser];
+//    WBDAWSCaller *caller = [[WBDAWSCaller alloc] init];
+//    [caller pushNotifyUser];
 }
                               
 -(UIImage*)imageWithImage:(UIImage*)image

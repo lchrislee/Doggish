@@ -7,9 +7,9 @@
 //
 
 #import "WBDCreateWalkViewController.h"
-#import <AWSCore/AWSCore.h>
-#import <AWSCognito/AWSCognito.h>
-#import <AWSLambda/AWSLambda.h>
+//#import <AWSCore/AWSCore.h>
+//#import <AWSCognito/AWSCognito.h>
+//#import <AWSLambda/AWSLambda.h>
 
 @import GoogleMaps;
 @interface WBDCreateWalkViewController () <UIPickerViewDelegate, UIPickerViewDataSource,
@@ -95,6 +95,7 @@
 }
 
 - (void) viewDidLoad{
+    self.view.backgroundColor = [UIColor whiteColor];
     self.timesAvailable = @[@"15", @"30", @"45", @"60", @"90", @"120", @"150"];
     self.dogs = @[@"Sully", @"Max", @"Snowpuff", @"Diamond"];
     
@@ -210,7 +211,8 @@
 
     NSMutableArray *chosenDogs = [[NSMutableArray alloc] init];
     for (int i = 0; i < [self.dogs count]; ++i){
-        NSIndexPath *index = [[NSIndexPath alloc] initWithIndex:i];
+        
+        NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:0];
         UITableViewCell *cell = [self.table cellForRowAtIndexPath:index];
 
         if (cell.accessoryType == UITableViewCellAccessoryCheckmark){
@@ -245,7 +247,8 @@
 //        }
 //        return nil;
 //    }];
-
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:[storyboard instantiateViewControllerWithIdentifier:@"WalkViewController"] animated:YES];
 }
 
 @end

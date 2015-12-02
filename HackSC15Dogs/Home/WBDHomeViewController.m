@@ -8,7 +8,7 @@
 
 #import "WBDHomeViewController.h"
 #import <CoreLocation/CoreLocation.h>
-#import "WBDAWSCaller.h"
+//#import "WBDAWSCaller.h"
 #import "WBDSearchProfileViewController.h"
 #import "WBDFilterViewController.h"
 #import "WBDCreateWalkViewController.h"
@@ -34,6 +34,7 @@ static BOOL showMarkers = YES;
 - (void )viewWillAppear:(BOOL)animated{
     if ([FBSDKAccessToken currentAccessToken]){
         [self.tabBarController.tabBar setHidden:NO];
+        self.view.backgroundColor = [UIColor whiteColor];
     }else{
         [self.tabBarController.tabBar setHidden:YES];
     }

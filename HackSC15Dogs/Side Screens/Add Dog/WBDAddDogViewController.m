@@ -7,9 +7,9 @@
 //
 
 #import "WBDAddDogViewController.h"
-#import <AWSCore/AWSCore.h>
-#import <AWSCognito/AWSCognito.h>
-#import <AWSLambda/AWSLambda.h>
+//#import <AWSCore/AWSCore.h>
+//#import <AWSCognito/AWSCognito.h>
+//#import <AWSLambda/AWSLambda.h>
 
 @interface WBDAddDogViewController () <UIImagePickerControllerDelegate>
 @property (strong, nonatomic) UIImageView *image;
@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
     self.name = [[UITextField alloc] initWithFrame:CGRectMake(30, 210, 80, 30)];
@@ -59,7 +60,7 @@
     [self.view addSubview:self.sliderSize];
     
     self.navigationItem.title = @"Traits";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveDog)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveDog)];
     
     self.image = [[UIImageView alloc] init];
     self.image.center = CGPointMake(30, self.navigationController.navigationBar.frame.size.height + 30);
@@ -74,28 +75,28 @@
     
     [self.view addSubview:self.image];
     
-    [self addImagePicker];
+//    [self addImagePicker];
 }
 
-- (void) saveDog{
-    AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
-    [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
-                        JSONObject:@{/*TODO CHANGE THIS*/}] continueWithBlock:^id(AWSTask *task) {
-        if (task.error) {
-            NSLog(@"Error: %@", task.error);
-        }
-        if (task.exception) {
-            NSLog(@"Exception: %@", task.exception);
-        }
-        if (task.result) {
-            NSLog(@"Result: %@", task.result);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }
-        return nil;
-    }];
-}
+//- (void) saveDog{
+//    AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
+//    [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
+//                        JSONObject:@{/*TODO CHANGE THIS*/}] continueWithBlock:^id(AWSTask *task) {
+//        if (task.error) {
+//            NSLog(@"Error: %@", task.error);
+//        }
+//        if (task.exception) {
+//            NSLog(@"Exception: %@", task.exception);
+//        }
+//        if (task.result) {
+//            NSLog(@"Result: %@", task.result);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.navigationController popViewControllerAnimated:YES];
+//            });
+//        }
+//        return nil;
+//    }];
+//}
 
 -(void) ageValueChanged{
     int bottom = self.sliderAge.value;
@@ -119,48 +120,48 @@
     }
 }
 
-- (void )addImagePicker{
-    self.imagePicker = [[UIImagePickerController alloc] init];
-    self.imagePicker.allowsEditing = NO;
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.delegate = self;
-    self.imagePicker.mediaTypes =
-    [UIImagePickerController availableMediaTypesForSourceType:
-     UIImagePickerControllerSourceTypeCamera];
-}
-
-- (void) showCamera{
-//    [self.navigationController pushViewController:self.imagePicker animated:YES];
-    [self.imagePicker takePicture];
-}
-
-- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    UIImage *originalImage, *editedImage, *imageToSave;
-    
-    // Handle a still image capture
-    editedImage = (UIImage *) [info objectForKey:
-                               UIImagePickerControllerEditedImage];
-    originalImage = (UIImage *) [info objectForKey:
-                                 UIImagePickerControllerOriginalImage];
-    
-    if (editedImage) {
-        imageToSave = editedImage;
-    } else {
-        imageToSave = originalImage;
-    }
-    
-    // Save the new image (original or edited) to the Camera Roll
-    UIImageWriteToSavedPhotosAlbum (imageToSave, nil, nil , nil);
-    
-    self.image.image = imageToSave;
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    picker = nil;
-}
-
-- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    picker = nil;
-}
+//- (void )addImagePicker{
+//    self.imagePicker = [[UIImagePickerController alloc] init];
+//    self.imagePicker.allowsEditing = NO;
+//    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//    self.imagePicker.delegate = self;
+//    self.imagePicker.mediaTypes =
+//    [UIImagePickerController availableMediaTypesForSourceType:
+//     UIImagePickerControllerSourceTypeCamera];
+//}
+//
+//- (void) showCamera{
+////    [self.navigationController pushViewController:self.imagePicker animated:YES];
+//    [self.imagePicker takePicture];
+//}
+//
+//- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+//    UIImage *originalImage, *editedImage, *imageToSave;
+//    
+//    // Handle a still image capture
+//    editedImage = (UIImage *) [info objectForKey:
+//                               UIImagePickerControllerEditedImage];
+//    originalImage = (UIImage *) [info objectForKey:
+//                                 UIImagePickerControllerOriginalImage];
+//    
+//    if (editedImage) {
+//        imageToSave = editedImage;
+//    } else {
+//        imageToSave = originalImage;
+//    }
+//    
+//    // Save the new image (original or edited) to the Camera Roll
+//    UIImageWriteToSavedPhotosAlbum (imageToSave, nil, nil , nil);
+//    
+//    self.image.image = imageToSave;
+//    
+//    [picker dismissViewControllerAnimated:YES completion:nil];
+//    picker = nil;
+//}
+//
+//- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+//    [picker dismissViewControllerAnimated:YES completion:nil];
+//    picker = nil;
+//}
 
 @end

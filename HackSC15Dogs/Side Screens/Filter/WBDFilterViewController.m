@@ -41,6 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     self.sliderSize = [[UISlider alloc] initWithFrame:CGRectMake(10, 125, self.view.frame.size.width - 40, 50)];
     

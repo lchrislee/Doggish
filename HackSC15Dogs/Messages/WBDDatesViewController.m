@@ -16,6 +16,7 @@
 @implementation WBDDatesViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     //This is just an image, set it to the background image
 //    NSString *imagePath = @"datesScreenBlurred";
 //    NSString *path = [[NSBundle mainBundle] pathForResource:imagePath ofType:@"png"];
