@@ -145,7 +145,7 @@ static BOOL showMarkers = YES;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.15 green:0.67 blue:0.75 alpha:1.0];
     [self locationSetup];
     [self googleMapsSampleSetup];
     

@@ -80,7 +80,8 @@
 }
 
 - (void) searchPressed{
-    [self.navigationController pushViewController:[[WBDSearchProfileViewController alloc] init] animated:YES];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:[storyboard instantiateViewControllerWithIdentifier:@"DogProfile"] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

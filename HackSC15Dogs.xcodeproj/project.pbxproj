@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28296C0C1C0E7ED2000586BE /* WBDWalkingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28296C0B1C0E7ED2000586BE /* WBDWalkingViewController.m */; };
+		28296C101C0E95AD000586BE /* WBDDogProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28296C0F1C0E95AD000586BE /* WBDDogProfileViewController.m */; };
 		2842A1171BF70B280001AEF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2842A1161BF70B280001AEF8 /* GoogleService-Info.plist */; };
 		2842A1241BF7AE280001AEF8 /* WBDDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1231BF7AE280001AEF8 /* WBDDatesViewController.m */; };
 		2842A12B1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A12A1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m */; };
@@ -55,6 +56,8 @@
 /* Begin PBXFileReference section */
 		28296C0A1C0E7ED2000586BE /* WBDWalkingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDWalkingViewController.h; path = "Side Screens/Walking/WBDWalkingViewController.h"; sourceTree = "<group>"; };
 		28296C0B1C0E7ED2000586BE /* WBDWalkingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDWalkingViewController.m; path = "Side Screens/Walking/WBDWalkingViewController.m"; sourceTree = "<group>"; };
+		28296C0E1C0E95AD000586BE /* WBDDogProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDDogProfileViewController.h; path = "Side Screens/Dog Profile/WBDDogProfileViewController.h"; sourceTree = "<group>"; };
+		28296C0F1C0E95AD000586BE /* WBDDogProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDDogProfileViewController.m; path = "Side Screens/Dog Profile/WBDDogProfileViewController.m"; sourceTree = "<group>"; };
 		2842A1161BF70B280001AEF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2842A1221BF7AE280001AEF8 /* WBDDatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDDatesViewController.h; path = Messages/WBDDatesViewController.h; sourceTree = "<group>"; };
 		2842A1231BF7AE280001AEF8 /* WBDDatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDDatesViewController.m; path = Messages/WBDDatesViewController.m; sourceTree = "<group>"; };
@@ -151,6 +154,15 @@
 			name = Walking;
 			sourceTree = "<group>";
 		};
+		28296C111C0E95B3000586BE /* Dog Profile */ = {
+			isa = PBXGroup;
+			children = (
+				28296C0E1C0E95AD000586BE /* WBDDogProfileViewController.h */,
+				28296C0F1C0E95AD000586BE /* WBDDogProfileViewController.m */,
+			);
+			name = "Dog Profile";
+			sourceTree = "<group>";
+		};
 		2842A11B1BF7AD380001AEF8 /* Main Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +183,7 @@
 				2842A1501BF85F1E0001AEF8 /* Create Walk */,
 				2842A15A1BF87B360001AEF8 /* Add Dog */,
 				28296C0D1C0E7F20000586BE /* Walking */,
+				28296C111C0E95B3000586BE /* Dog Profile */,
 			);
 			name = "Side Screens";
 			sourceTree = "<group>";
@@ -571,6 +584,7 @@
 				28A260841BF6FE420073C6BA /* main.m in Sources */,
 				287894A61BF8AB2E00BF3122 /* WBDMessagesViewController.m in Sources */,
 				2842A14F1BF85F140001AEF8 /* WBDCreateWalkViewController.m in Sources */,
+				28296C101C0E95AD000586BE /* WBDDogProfileViewController.m in Sources */,
 				28296C0C1C0E7ED2000586BE /* WBDWalkingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
