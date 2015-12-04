@@ -196,26 +196,30 @@ static BOOL showMarkers = YES;
 - (void) loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
     if (!error){
 
+        [self.loginView removeFromSuperview];
+        [self.tabBarController.tabBar setHidden:NO];
+        [self.navigationController.navigationBar setHidden:NO];
+
         NSLog(@"not an error");
         NSString * appID = [[FBSDKAccessToken currentAccessToken] appID];
         [[NSUserDefaults standardUserDefaults] setValue:appID forKey:@"appID"];
         [[NSUserDefaults standardUserDefaults] synchronize];
 
+        //AWS CODE
         //check if user is in db already with conditional put
-
         //create user
         //{ operation: create
         // tableName: User
         // conditionalExpression: "attribute_not_exist(ID)"
         // Item:{
         //  ID:"appID"}
+        /*
         NSDictionary *item = @{@"ID": appID};
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:@"create" forKey:@"operation"];
         [dict setObject:@"User" forKey:@"TableName"];
         [dict setObject:item forKey:@"Item"];
         [dict setObject:@"attribute_not_exists(ID)" forKey:@"ConditionExpression"];
-
         AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
         [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
                             JSONObject:dict] continueWithBlock:^id(AWSTask *task) {
@@ -233,7 +237,7 @@ static BOOL showMarkers = YES;
             [self.tabBarController.tabBar setHidden:NO];
             [self.navigationController.navigationBar setHidden:NO];
             return nil;
-        }];
+        }];*/
     }else{
         NSLog(@"else");
     }

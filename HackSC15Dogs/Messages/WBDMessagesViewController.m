@@ -33,7 +33,7 @@
     }
     if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"user_friends"]){
         // create a request to actually get the friends
-        FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/friends?fields=name,picture" parameters:nil];
+        FBSDKGraphRequest * request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/friends?fields=name,picture,link" parameters:nil];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (error){
                 NSLog(@"Cannot complete request");

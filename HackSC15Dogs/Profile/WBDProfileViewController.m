@@ -11,71 +11,82 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "WBDAddDogViewController.h"
-@interface WBDProfileViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (strong, nonatomic) UITableView *table;
-@property (strong, nonatomic) NSMutableDictionary *dogs;
+@interface WBDProfileViewController ()
+
 @end
 
 @implementation WBDProfileViewController
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Number of rows is the number of time zones in the region for the specified section.
-    return [self.dogs count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //reusing
-    //NSIndexpath = describe section and row
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Dog Cell"];
-    //see if there is a cell we can reuse
-    
-    if (cell == nil) {
-        //if no identifier, create one
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Dog Cell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    // TODO FILL CELL
-    return cell;
-}
-
-//Alternating background color of cells
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row%2 == 0) {
-        UIColor *altCellColor = [UIColor colorWithWhite:0.7 alpha:0.1];
-        cell.backgroundColor = altCellColor;
-    }
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [self.tabBarController.tabBar setHidden:NO];
-    [self testFacebookLogin];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"Dogs";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDog)];
     self.navigationItem.title = @"Your Dogs";
-    self.table = [[UITableView alloc] init];
-    self.table.contentInset = UIEdgeInsetsMake(0, self.navigationController.navigationBar.frame.size.height, 0, 0);
-    [self.view addSubview: self.table];
+
+    self.navigationItem.leftBarButtonItem = [self createUIBarButton];
+
+    //self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    _collectionView=[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
+    [_collectionView setDataSource:self];
+    [_collectionView setDelegate:self];
+
+    // Register this NIB which contains the cell
+    UINib *nib = [UINib nibWithNibName:@"CustomCollectionView" bundle:nil];
+    [_collectionView registerNib:nib forCellWithReuseIdentifier:@"DogCell"];
+    _collectionView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_collectionView];
+    // Do any additional setup after loading the view, typically from a nib.
+
 }
 
--(void) testFacebookLogin{
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    loginButton.center = self.view.center;
-    // request to see friends
-    loginButton.readPermissions = @[@"user_friends"];
-    [self.view addSubview:loginButton];
+-(UIBarButtonItem*) createUIBarButton{
+
+    //Create a button
+    UIImage *image = [UIImage imageNamed:@"logout"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.bounds = CGRectMake( 0, 0, image.size.width, image.size.height );
+    [button setImage:image forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(facebookLogout) forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:button];
 }
+
+-(void) facebookLogout{
+    [[FBSDKLoginManager new] logOut];
+    [self.tabBarController setSelectedIndex:0];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"DogCell" forIndexPath:indexPath];
+    //    cell.layer.borderWidth=1.0f;
+    //    cell.layer.borderColor=[UIColor blackColor].CGColor;
+    //creates border
+    return cell;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 15;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionView *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0; // spacing between cells
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //allows for 2 cells in each row
+    return CGSizeMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.width/2);
+}
+
 
 - (void) addDog{
     for (UIView *v in [self.view subviews]){

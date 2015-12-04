@@ -22,6 +22,8 @@
 		2842A14F1BF85F140001AEF8 /* WBDCreateWalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */; };
 		2842A1591BF87B330001AEF8 /* WBDAddDogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1581BF87B330001AEF8 /* WBDAddDogViewController.m */; };
 		287894A61BF8AB2E00BF3122 /* WBDMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287894A51BF8AB2E00BF3122 /* WBDMessagesViewController.m */; };
+		28927C421C111C5000394E58 /* CustomCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28927C411C111C5000394E58 /* CustomCollectionView.xib */; };
+		28927C451C111C7D00394E58 /* DogCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28927C441C111C7D00394E58 /* DogCollectionViewCell.m */; };
 		28A260841BF6FE420073C6BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260831BF6FE420073C6BA /* main.m */; };
 		28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A260861BF6FE420073C6BA /* AppDelegate.m */; };
 		28A2608D1BF6FE420073C6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A2608B1BF6FE420073C6BA /* Main.storyboard */; };
@@ -83,6 +85,9 @@
 		2842A1581BF87B330001AEF8 /* WBDAddDogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDAddDogViewController.m; path = "Side Screens/Add Dog/WBDAddDogViewController.m"; sourceTree = "<group>"; };
 		287894A41BF8AB2E00BF3122 /* WBDMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDMessagesViewController.h; path = Messages/WBDMessagesViewController.h; sourceTree = "<group>"; };
 		287894A51BF8AB2E00BF3122 /* WBDMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDMessagesViewController.m; path = Messages/WBDMessagesViewController.m; sourceTree = "<group>"; };
+		28927C411C111C5000394E58 /* CustomCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionView.xib; sourceTree = "<group>"; };
+		28927C431C111C7D00394E58 /* DogCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DogCollectionViewCell.h; sourceTree = "<group>"; };
+		28927C441C111C7D00394E58 /* DogCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DogCollectionViewCell.m; sourceTree = "<group>"; };
 		28A2607F1BF6FE420073C6BA /* HackSC15Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackSC15Dogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A260831BF6FE420073C6BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		28A260851BF6FE420073C6BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -209,6 +214,7 @@
 		2842A11F1BF7AD550001AEF8 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				28927C461C111CE800394E58 /* CollectionViewFiles */,
 				2842A1341BF7E18B0001AEF8 /* WBDProfileViewController.h */,
 				2842A1351BF7E18B0001AEF8 /* WBDProfileViewController.m */,
 			);
@@ -294,6 +300,16 @@
 				2842A1581BF87B330001AEF8 /* WBDAddDogViewController.m */,
 			);
 			name = "Add Dog";
+			sourceTree = "<group>";
+		};
+		28927C461C111CE800394E58 /* CollectionViewFiles */ = {
+			isa = PBXGroup;
+			children = (
+				28927C411C111C5000394E58 /* CustomCollectionView.xib */,
+				28927C431C111C7D00394E58 /* DogCollectionViewCell.h */,
+				28927C441C111C7D00394E58 /* DogCollectionViewCell.m */,
+			);
+			name = CollectionViewFiles;
 			sourceTree = "<group>";
 		};
 		28A260761BF6FE420073C6BA = {
@@ -495,6 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28A260921BF6FE420073C6BA /* LaunchScreen.storyboard in Resources */,
+				28927C421C111C5000394E58 /* CustomCollectionView.xib in Resources */,
 				2842A1171BF70B280001AEF8 /* GoogleService-Info.plist in Resources */,
 				28A2608F1BF6FE420073C6BA /* Assets.xcassets in Resources */,
 				28A2608D1BF6FE420073C6BA /* Main.storyboard in Resources */,
@@ -571,6 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2842A13C1BF7EB0D0001AEF8 /* WBDJSONFactory.m in Sources */,
+				28927C451C111C7D00394E58 /* DogCollectionViewCell.m in Sources */,
 				2842A1591BF87B330001AEF8 /* WBDAddDogViewController.m in Sources */,
 				28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */,
 				2842A1411BF7F1970001AEF8 /* WBDFilterViewController.m in Sources */,
