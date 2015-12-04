@@ -84,7 +84,8 @@
         }
     }
     
-    [self.navigationController pushViewController:[[WBDAddDogViewController alloc] init] animated:YES];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:[storyboard instantiateViewControllerWithIdentifier:@"DogAdd"] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

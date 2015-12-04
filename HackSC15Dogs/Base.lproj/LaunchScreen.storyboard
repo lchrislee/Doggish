@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -54,6 +55,9 @@
                                 <exclude reference="tG9-Qz-GR2"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="27w-xS-deu"/>
+                                <exclude reference="Deh-It-dov"/>
+                                <exclude reference="W9t-TA-IO5"/>
                                 <exclude reference="30a-fU-uGU"/>
                                 <exclude reference="6cy-6U-Hzz"/>
                                 <exclude reference="MZm-qN-MRo"/>
@@ -63,9 +67,6 @@
                                 <exclude reference="RgZ-QU-M63"/>
                                 <exclude reference="YUn-Zm-KzI"/>
                                 <exclude reference="iRL-Dy-Pvh"/>
-                                <exclude reference="Deh-It-dov"/>
-                                <exclude reference="W9t-TA-IO5"/>
-                                <exclude reference="27w-xS-deu"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -75,6 +76,9 @@
                                 <include reference="tG9-Qz-GR2"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="27w-xS-deu"/>
+                                <include reference="Deh-It-dov"/>
+                                <include reference="W9t-TA-IO5"/>
                                 <include reference="30a-fU-uGU"/>
                                 <include reference="6cy-6U-Hzz"/>
                                 <include reference="MZm-qN-MRo"/>
@@ -84,9 +88,6 @@
                                 <include reference="RgZ-QU-M63"/>
                                 <include reference="YUn-Zm-KzI"/>
                                 <include reference="iRL-Dy-Pvh"/>
-                                <include reference="Deh-It-dov"/>
-                                <include reference="W9t-TA-IO5"/>
-                                <include reference="27w-xS-deu"/>
                             </mask>
                         </variation>
                     </view>
