@@ -75,7 +75,8 @@
 
 - (IBAction)endWalkPressed:(id)sender {
     if (self.didStartWalk){
-        [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:0] animated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController.navigationBar setHidden:NO];
     }else{
         self.didStartWalk = YES;
         [self.endWalkButton setTitle:@"End Walk" forState:UIControlStateNormal];
@@ -90,6 +91,7 @@
     self.didStartWalk = NO;
     [self locationSetup];
     [self googleMapsSampleSetup];
+    [self.navigationController.navigationBar setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {

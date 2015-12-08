@@ -52,7 +52,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.tabController.viewControllers = @[[self makeHomeController],
                                            [self makeMessagesController],
                                            [self makeDatesController],
-                                           [self makeFavoritesController],
+//                                           [self makeFavoritesController],
                                            [self makeProfileController]
                                            ];
     self.tabController.selectedIndex = 0;
@@ -83,14 +83,14 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     return viewController;
 }
 
-- (UINavigationController *)makeFavoritesController{
-    WBDFavoritesViewController *favoritesView = [[WBDFavoritesViewController alloc] init];
-    favoritesView.title = @"Favorites";
-    
-    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:favoritesView];
-    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[UIImage imageNamed:@"iconFavoriteSmall.png"] tag:0];
-    return viewController;
-}
+//- (UINavigationController *)makeFavoritesController{
+//    WBDFavoritesViewController *favoritesView = [[WBDFavoritesViewController alloc] init];
+//    favoritesView.title = @"Favorites";
+//    
+//    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:favoritesView];
+//    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[UIImage imageNamed:@"iconFavoriteSmall.png"] tag:0];
+//    return viewController;
+//}
 
 - (UINavigationController *)makeDatesController{
     WBDDatesViewController *dateView = [[WBDDatesViewController alloc] init];

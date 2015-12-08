@@ -156,9 +156,9 @@ static BOOL showMarkers = YES;
 //    
 //    [self.view addSubview:self.searchSwitcher];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconSearch.png"] style:UIBarButtonItemStylePlain target:self action:@selector(changeToFilter)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconSearch.png"] style:UIBarButtonItemStylePlain target:self action:@selector(changeToFilter)];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"walkDog"] style:UIBarButtonItemStylePlain target:self action:@selector(goOnWalk)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"walkDog"] style:UIBarButtonItemStylePlain target:self action:@selector(goOnWalk)];
 
     if (showMarkers == YES){
         [self addMarkers];
@@ -249,10 +249,10 @@ static BOOL showMarkers = YES;
     [self.navigationController pushViewController:[[WBDCreateWalkViewController alloc] init] animated:YES];
 }
 
-- (void)changeToFilter{
-    [self.tabBarController.tabBar setHidden:YES];
-    [self.navigationController pushViewController:[[WBDFilterViewController alloc] init] animated:YES];
-}
+//- (void)changeToFilter{
+//    [self.tabBarController.tabBar setHidden:YES];
+//    [self.navigationController pushViewController:[[WBDFilterViewController alloc] init] animated:YES];
+//}
 
 - (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary{
     NSLog(@"WORKS TO HERE");

@@ -10,7 +10,7 @@
 
 @interface WBDDogProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *dogImage;
-@property (weak, nonatomic) IBOutlet UIImageView *humanProfileImage;
+@property (weak, nonatomic) IBOutlet UIButton *humanImage;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *humanNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dogBreedLabel;
@@ -26,9 +26,9 @@
 @implementation WBDDogProfileViewController
 
 - (void) setUpHuman{
-    self.humanProfileImage.layer.cornerRadius = self.humanProfileImage.frame.size.width / 2;
-    self.humanProfileImage.layer.masksToBounds = YES;
-    self.humanProfileImage.layer.borderWidth = 2.0f;
+    self.humanImage.layer.cornerRadius = self.humanImage.frame.size.width / 2;
+    self.humanImage.layer.masksToBounds = YES;
+    self.humanImage.layer.borderWidth = 2.0f;
 }
 
 - (void) fixDogImage{
@@ -36,15 +36,12 @@
 }
 
 - (void) setNavItems{
-
     self.navigationItem.title = @"PEANUT";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:1.13 green:0.81 blue:0.34 alpha:1.0]}];
     
     UIBarButtonItem *messageButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"meetingRequest"] style:UIBarButtonItemStylePlain target:self action:@selector(message)];
     messageButton.tintColor = [UIColor whiteColor];
-    UIBarButtonItem *favoriteButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favoriteDog"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
-    favoriteButton.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItems = @[messageButton, favoriteButton];
+    self.navigationItem.rightBarButtonItems = @[messageButton];
 }
 
 - (void)viewDidLoad {
@@ -71,11 +68,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) message{
-    
+- (IBAction)checkProfilePressed:(id)sender {
 }
 
-- (void) favorite{
+- (void) message{
     
 }
 
