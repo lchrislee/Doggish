@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WBDProfileViewController : UIViewController
-
+@interface WBDProfileViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+{
+    UICollectionView *_collectionView;
+}
 @end
