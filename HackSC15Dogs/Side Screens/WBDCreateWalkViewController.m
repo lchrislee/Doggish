@@ -90,7 +90,7 @@
     self.marker.map = self.mapGMSMapView;
 }
 
-- (void) mapView:(GMSMapView *)mapView didDraggMarker:(GMSMarker *)marker{
+- (void) mapView:(GMSMapView *)mapView didDragMarker:(GMSMarker *)marker{
     [self.mapGMSMapView setCamera:[[GMSCameraPosition alloc] initWithTarget:marker.position zoom:16 bearing:mapView.camera.bearing viewingAngle:mapView.camera.viewingAngle]];
 }
 

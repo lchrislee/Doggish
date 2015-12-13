@@ -7,6 +7,8 @@
 //
 
 #import "WBDAddDogViewController.h"
+#import <Parse/Parse.h>
+#import "Dog.h"
 //#import <AWSCore/AWSCore.h>
 //#import <AWSCognito/AWSCognito.h>
 //#import <AWSLambda/AWSLambda.h>
@@ -37,6 +39,7 @@
     self.navigationItem.title = @"Add Dog";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveDog)];
     self.scrollView.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height+20, 0, 0, 0);
+    [self.scrollView targetForAction:@selector(sizeValueChanged) withSender:self];
 }
 
 - (IBAction)dogImageUpdate:(id)sender {
@@ -55,24 +58,32 @@
 }
 
 - (void) saveDog{
-    [self.navigationController popViewControllerAnimated:YES];
-    //    AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
-    //    [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
-    //                        JSONObject:@{/*TODO CHANGE THIS*/}] continueWithBlock:^id(AWSTask *task) {
-    //        if (task.error) {
-    //            NSLog(@"Error: %@", task.error);
-    //        }
-    //        if (task.exception) {
-    //            NSLog(@"Exception: %@", task.exception);
-    //        }
-    //        if (task.result) {
-    //            NSLog(@"Result: %@", task.result);
-    //            dispatch_async(dispatch_get_main_queue(), ^{
-    //                [self.navigationController popViewControllerAnimated:YES];
-    //            });
-    //        }
-    //        return nil;
-    //    }];
+    Dog *d = [Dog object];
+    
+    d[@"Name"] = self.dogName.text;
+    d[@"Breed"] = self.dogBreed.text;
+    d[@"Favorite"] = self.favoriteDogField.text;
+    d[@"About"] = self.aboutDogField.text;
+    d[@"Age"] = @([self.dogAgeField.text integerValue] % 5);
+    d[@"Rating"] = @0;
+    d[@"Size"] = @(self.sliderSize.value);
+//    d[@"Owner"] = [PFUser currentUser];
+    d[@"Image"] = [PFFile fileWithName:[NSString stringWithFormat:@"%@_image.png", self.dogName.text]
+                                  data:UIImagePNGRepresentation(self.dogImageButton.imageView.image)];
+    
+    [d saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded){
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            NSLog([error localizedDescription]);
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Could not save"
+                                                                                     message:@"Please try to save your dog again."
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {}]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+    }];
 }
 
 //- (void )addImagePicker{

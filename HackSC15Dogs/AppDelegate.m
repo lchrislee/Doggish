@@ -10,6 +10,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Google/CloudMessaging.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <Parse/Parse.h>
+#import "Dog.h"
 
 #import "WBDMessagesViewController.h"
 #import "WBDDatesViewController.h"
@@ -39,7 +41,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [self registerRemoteNotifications];
     [self startGCMStuff];
-    [self setUpAws];
     [GMSServices provideAPIKey:@"AIzaSyAw8i7Mc0eOFCIFKUdihD5NQqaSNz7WEyo"];
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
@@ -64,14 +65,17 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self.window makeKeyAndVisible];
     
+    [Parse enableLocalDatastore];
+    
+    [Dog registerSubclass];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"Skfywo7iBrJKN2VDDh8HDuYXqQZHMQi7XHBtqpU4"
+                  clientKey:@"8j1gwIgSD3uGqJKeXKc6ZBovQczk1FVg6Hmi0A7K"];
+    
     return YES;
 }
 
--(void)setUpAws{
-    AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:AWSRegionUSEast1 identityPoolId:@"us-east-1:0ca94176-5277-494b-bb55-4ef0f1e95536"];
-    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:credentialsProvider];
-    AWSServiceManager.defaultServiceManager.defaultServiceConfiguration = configuration;
-}
 
 - (UINavigationController *)makeHomeController{
     WBDHomeViewController *homeView = [[WBDHomeViewController alloc] init];

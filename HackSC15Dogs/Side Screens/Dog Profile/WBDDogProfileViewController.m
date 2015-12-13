@@ -69,6 +69,7 @@
 }
 
 - (IBAction)checkProfilePressed:(id)sender {
+    
 }
 
 - (void) message{
