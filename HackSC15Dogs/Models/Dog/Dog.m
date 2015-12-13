@@ -9,21 +9,26 @@
 #import <Parse/PFObject+Subclass.h>
 
 @interface Dog ()
-@property (weak, nonatomic) PFUser *owner;
+
 @end
 
 @implementation Dog
-@dynamic name;
-@dynamic breed;
-@dynamic favorite;
-@dynamic about;
-@dynamic age;
-@dynamic rating;
-@dynamic size;
-@dynamic image;
-@dynamic owner;
+@dynamic Name;
+@dynamic Breed;
+@dynamic Favorite;
+@dynamic About;
+@dynamic Age;
+@dynamic Rating;
+@dynamic Size;
+@dynamic Image;
+@dynamic Owner;
 
 +(NSString *)parseClassName{
     return @"Dog";
 }
+
+- (UIImage *) getImage{
+    return [UIImage imageWithData:[self[@"Image"] getData]];
+}
+
 @end

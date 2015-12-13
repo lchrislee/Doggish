@@ -9,9 +9,6 @@
 #import "WBDAddDogViewController.h"
 #import <Parse/Parse.h>
 #import "Dog.h"
-//#import <AWSCore/AWSCore.h>
-//#import <AWSCognito/AWSCognito.h>
-//#import <AWSLambda/AWSLambda.h>
 
 @interface WBDAddDogViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *dogImageButton;

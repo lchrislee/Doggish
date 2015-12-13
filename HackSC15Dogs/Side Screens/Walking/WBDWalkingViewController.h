@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlayDate.h"
 
 @interface WBDWalkingViewController : UIViewController
-
+@property (strong, nonatomic) PlayDate *date;
 @end

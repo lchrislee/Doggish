@@ -11,14 +11,14 @@
 
 @interface Dog : PFObject<PFSubclassing>
 +(NSString *)parseClassName;
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *breed;
-@property (strong, nonatomic) NSString *favorite;
-@property (strong, nonatomic) NSString *about;
-@property (strong, nonatomic) NSNumber *age;
-@property (strong, nonatomic) NSNumber *rating;
-@property (strong, nonatomic) NSNumber *size;
-@property (strong, nonatomic) UIImage *image;
-@property (weak, nonatomic, readonly) PFUser *owner;
+@property (strong, nonatomic) NSString *Name;
+@property (strong, nonatomic) NSString *Breed;
+@property (strong, nonatomic) NSString *Favorite;
+@property (strong, nonatomic) NSString *About;
+@property (strong, nonatomic) NSNumber *Age;
+@property (strong, nonatomic) NSNumber *Rating;
+@property (strong, nonatomic) NSNumber *Size;
+@property (strong, nonatomic) UIImage *Image;
+@property (weak, nonatomic) PFUser *Owner;
 
 @end

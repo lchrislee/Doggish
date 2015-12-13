@@ -45,6 +45,7 @@
 		28D087F51C1E06DF00AD27F1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D087F41C1E06DF00AD27F1 /* libz.tbd */; };
 		28D087F71C1E06E800AD27F1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D087F61C1E06E800AD27F1 /* libsqlite3.tbd */; };
 		28D087FC1C1E105900AD27F1 /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D087FB1C1E105900AD27F1 /* Dog.m */; };
+		28D088001C1E1CF900AD27F1 /* PlayDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D087FF1C1E1C1100AD27F1 /* PlayDate.m */; };
 		28F78A4B1BFAF7B700DAF288 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F78A4A1BFAF7B700DAF288 /* MapKit.framework */; };
 		D70808D3236AC9C935208248 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE19B205EA011670BED4A5A /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -126,6 +127,8 @@
 		28D087F61C1E06E800AD27F1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		28D087FB1C1E105900AD27F1 /* Dog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Dog.m; path = Models/Dog/Dog.m; sourceTree = "<group>"; };
 		28D087FD1C1E106F00AD27F1 /* Dog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Dog.h; path = Models/Dog/Dog.h; sourceTree = "<group>"; };
+		28D087FE1C1E1B8D00AD27F1 /* PlayDate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlayDate.h; path = Models/PlayDate/PlayDate.h; sourceTree = "<group>"; };
+		28D087FF1C1E1C1100AD27F1 /* PlayDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayDate.m; path = Models/PlayDate/PlayDate.m; sourceTree = "<group>"; };
 		28F78A4A1BFAF7B700DAF288 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9FE19B205EA011670BED4A5A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFE48429A987464676B42EA8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -438,6 +441,8 @@
 		28D087FA1C1E0FE600AD27F1 /* PlayDate */ = {
 			isa = PBXGroup;
 			children = (
+				28D087FE1C1E1B8D00AD27F1 /* PlayDate.h */,
+				28D087FF1C1E1C1100AD27F1 /* PlayDate.m */,
 			);
 			name = PlayDate;
 			sourceTree = "<group>";
@@ -646,6 +651,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28D088001C1E1CF900AD27F1 /* PlayDate.m in Sources */,
 				28927C451C111C7D00394E58 /* DogCollectionViewCell.m in Sources */,
 				2842A1591BF87B330001AEF8 /* WBDAddDogViewController.m in Sources */,
 				28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */,

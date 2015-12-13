@@ -7,9 +7,8 @@
 //
 
 #import "WBDCreateWalkViewController.h"
-//#import <AWSCore/AWSCore.h>
-//#import <AWSCognito/AWSCognito.h>
-//#import <AWSLambda/AWSLambda.h>
+#import "WBDWalkingViewController.h"
+#import "PlayDate.h"
 
 @import GoogleMaps;
 @interface WBDCreateWalkViewController () <UIPickerViewDelegate, UIPickerViewDataSource,
@@ -191,64 +190,30 @@
 }
 
 - (void) startWalk{
-
-//    {
-//        "operation": "create",
-//        "TableName": "MapMarker",
-//        "Item": {
-//            "ID":
-//            "dognames":[],
-//            "lat": "",
-//            "long": "",
-//            "endTime":"",
-//        }
-//    }
-
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-
-    [dict setObject:@"create" forKey:@"operation"];
-    [dict setObject:@"MapMarker" forKey:@"TableName"];
-
-    NSMutableArray *chosenDogs = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [self.dogs count]; ++i){
-        
-        NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:0];
-        UITableViewCell *cell = [self.table cellForRowAtIndexPath:index];
-
-        if (cell.accessoryType == UITableViewCellAccessoryCheckmark){
-            [chosenDogs addObject:cell.textLabel.text];
+    NSString *time = [self pickerView:self.timePicker titleForRow:[self.timePicker selectedRowInComponent:0] forComponent:0];
+    
+    PlayDate *date = [PlayDate object];
+    date[@"Duration"] = @([time integerValue]);
+    date[@"Location"] = [PFGeoPoint geoPointWithLatitude:self.marker.position.latitude longitude:self.marker.position.longitude];
+//    date[@"Walker"] = [PFUser currentUser];
+    date[@"WalkingDogs"] = @[]; // add dogs
+    
+    [date saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded){
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            WBDWalkingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"WalkViewController"];
+            [vc setDate:date];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            NSLog([error localizedDescription]);
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Could not start walk"
+                                                                                     message:@"Please try to make another walk."
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {}]];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
-    }
-
-    NSDate *date = [NSDate date];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm"];
-    NSDate *todaysDate;
-    todaysDate = [NSDate date];
-    NSLog(@"Todays date is %@",[formatter stringFromDate:todaysDate]);
-    NSString * stringDate = [formatter stringFromDate:todaysDate];
-
-
-//    AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
-//    [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
-//                        JSONObject:@{/*TODO CHANGE THIS*/}] continueWithBlock:^id(AWSTask *task) {
-//        if (task.error) {
-//            NSLog(@"Error: %@", task.error);
-//        }
-//        if (task.exception) {
-//            NSLog(@"Exception: %@", task.exception);
-//        }
-//        if (task.result) {
-//            NSLog(@"Result: %@", task.result);
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                self.tabBarController.hidesBottomBarWhenPushed = NO;
-//                [self.navigationController popViewControllerAnimated:YES];
-//            });
-//        }
-//        return nil;
-//    }];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    [self.navigationController pushViewController:[storyboard instantiateViewControllerWithIdentifier:@"WalkViewController"] animated:YES];
+    }];
 }
 
 @end
