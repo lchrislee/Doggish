@@ -8,7 +8,6 @@
 
 #import "WBDHomeViewController.h"
 #import <CoreLocation/CoreLocation.h>
-//#import "WBDAWSCaller.h"
 #import "WBDSearchProfileViewController.h"
 #import "WBDFilterViewController.h"
 #import "WBDCreateWalkViewController.h"
@@ -16,6 +15,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 
 @import GoogleMaps;
@@ -149,15 +149,6 @@ static BOOL showMarkers = YES;
     [self locationSetup];
     [self googleMapsSampleSetup];
     
-//    self.searchSwitcher = [[UISegmentedControl alloc] initWithItems:@[@"Out and about", @"Featured"] ];
-//    self.searchSwitcher.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, 25);
-//    self.searchSwitcher.selectedSegmentIndex = 0;
-//    [self.searchSwitcher addTarget:self action:@selector(segmentedSelected) forControlEvents:UIControlEventValueChanged];
-//    
-//    [self.view addSubview:self.searchSwitcher];
-
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconSearch.png"] style:UIBarButtonItemStylePlain target:self action:@selector(changeToFilter)];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"walkDog"] style:UIBarButtonItemStylePlain target:self action:@selector(goOnWalk)];
 
     if (showMarkers == YES){
@@ -171,8 +162,45 @@ static BOOL showMarkers = YES;
 }
 
 - (void) viewDidAppear:(BOOL)animated{
-    if (![FBSDKAccessToken currentAccessToken]){
+    if ([FBSDKAccessToken currentAccessToken] == nil){
         [self showLogin];
+    }else if ([PFUser currentUser] == nil){
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields":@"id,name"}];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (!error){
+                [PFUser logInWithUsernameInBackground:[((NSDictionary *)result) objectForKey:@"id"]
+                                             password:[((NSDictionary *)result) objectForKey:@"name"]
+                                                block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+                                                    if (error){
+                                                        NSLog([error localizedDescription]);
+                                                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Could not login successfully"
+                                                                                                                                 message:@"Please log out and log in again."
+                                                                                                                          preferredStyle:UIAlertControllerStyleAlert];
+                                                        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                                                          handler:^(UIAlertAction * _Nonnull action) {}]];
+                                                        [self presentViewController:alertController animated:YES completion:nil];
+                                                    }
+                                                }];
+            }
+        }];
+    }else{
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields":@"picture,link"}];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            NSDictionary *resultJSON = (NSDictionary *)result;
+            PFUser *user = [PFUser currentUser];
+            NSString *link = [resultJSON objectForKey:@"link"];
+            NSString *picture;
+            
+            if ([[[resultJSON objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"is_silhouette"] == NO){
+                picture = [[[resultJSON objectForKey:@"picture]"] objectForKey:@"data"] objectForKey:@"url"];
+            }else{
+                picture = @"";
+            }
+            user[@"Image"] = picture;
+            user[@"Url"] = link;
+            
+            [user saveInBackground];
+        }];
     }
 }
 
@@ -190,59 +218,54 @@ static BOOL showMarkers = YES;
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     loginButton.center = self.loginView.center;
     loginButton.delegate = self;
+    loginButton.readPermissions = @[@"user_website", @"public_profile", @"user_friends"];
+    loginButton.publishPermissions = @[@"publish_actions"];
     [self.loginView addSubview:loginButton];
 }
 
 - (void) loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
     if (!error){
-
-        [self.loginView removeFromSuperview];
-        [self.tabBarController.tabBar setHidden:NO];
-        [self.navigationController.navigationBar setHidden:NO];
-
-        NSLog(@"not an error");
-        NSString * appID = [[FBSDKAccessToken currentAccessToken] appID];
-        [[NSUserDefaults standardUserDefaults] setValue:appID forKey:@"appID"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-
-        //AWS CODE
-        //check if user is in db already with conditional put
-        //create user
-        //{ operation: create
-        // tableName: User
-        // conditionalExpression: "attribute_not_exist(ID)"
-        // Item:{
-        //  ID:"appID"}
-        /*
-        NSDictionary *item = @{@"ID": appID};
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:@"create" forKey:@"operation"];
-        [dict setObject:@"User" forKey:@"TableName"];
-        [dict setObject:item forKey:@"Item"];
-        [dict setObject:@"attribute_not_exists(ID)" forKey:@"ConditionExpression"];
-        AWSLambdaInvoker *lambdaInvoker = [AWSLambdaInvoker defaultLambdaInvoker];
-        [[lambdaInvoker invokeFunction:@"arn:aws:lambda:us-east-1:672822236713:function:HackSCTest2"
-                            JSONObject:dict] continueWithBlock:^id(AWSTask *task) {
-            if (task.error) {
-                NSLog(@"Error: %@", task.error);
+        NSDictionary *params = @{@"fields": @"id,name,link,picture"};
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:params];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            NSDictionary *resultJSON = (NSDictionary *)result;
+            NSString *userText = [resultJSON objectForKey:@"id"];
+            NSString *passText = [resultJSON objectForKey:@"name"];
+            NSString *link = [resultJSON objectForKey:@"link"];
+            NSString *picture;
+            
+            if ([[[resultJSON objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"is_silhouette"] == NO){
+                picture = [[[resultJSON objectForKey:@"picture]"] objectForKey:@"data"] objectForKey:@"url"];
+            }else{
+                picture = @"";
             }
-            if (task.exception) {
-                NSLog(@"Exception: %@", task.exception);
-            }
-            if (task.result) {
-                NSLog(@"Result: %@", task.result);
-            }
-            [self.loginView removeFromSuperview];
-            self.loginView = nil;
-            [self.tabBarController.tabBar setHidden:NO];
-            [self.navigationController.navigationBar setHidden:NO];
-            return nil;
-        }];*/
+            
+            [PFUser logInWithUsernameInBackground:userText password:passText block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+                if (error){
+                    PFUser *newUser = [PFUser user];
+                    newUser.username = userText;
+                    newUser.password = passText;
+                    newUser[@"Name"] = passText;
+                    newUser[@"Image"] = picture;
+                    newUser[@"Url"] = link;
+                    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                        [self.loginView removeFromSuperview];
+                        [self.tabBarController.tabBar setHidden:NO];
+                        [self.navigationController.navigationBar setHidden:NO];
+
+                        NSLog(@"not an error");
+                        NSString * appID = [[FBSDKAccessToken currentAccessToken] appID];
+                        [[NSUserDefaults standardUserDefaults] setValue:appID forKey:@"appID"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                    }];
+                }
+            } ];
+        }];
+        
     }else{
         NSLog(@"else");
     }
 }
-
 
 - (void) loginButtonDidLogOut:(FBSDKLoginButton *)loginButton{
 
@@ -252,11 +275,6 @@ static BOOL showMarkers = YES;
     [self.tabBarController.tabBar setHidden:YES];
     [self.navigationController pushViewController:[[WBDCreateWalkViewController alloc] init] animated:YES];
 }
-
-//- (void)changeToFilter{
-//    [self.tabBarController.tabBar setHidden:YES];
-//    [self.navigationController pushViewController:[[WBDFilterViewController alloc] init] animated:YES];
-//}
 
 - (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary{
     NSLog(@"WORKS TO HERE");
