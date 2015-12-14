@@ -15,13 +15,21 @@
 #import "Dog.h"
 
 @interface WBDProfileViewController ()
-
+@property (strong, nonatomic) NSMutableArray *dogs;
 @end
 
 @implementation WBDProfileViewController
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.tabBarController.tabBar setHidden:NO];
+    if (self.userToDisplay == nil){
+        self.userToDisplay = [PFUser currentUser];
+    }
+    
+    [self.userToDisplay fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        self.dogs = self.userToDisplay[@"Dogs"];
+        [_collectionView reloadData];
+    }];
 }
 
 - (void) navigationSetup{
@@ -36,7 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self navigationSetup];
-
+    
     //self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
     _collectionView=[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
@@ -49,7 +57,6 @@
     _collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_collectionView];
     // Do any additional setup after loading the view, typically from a nib.
-    
 }
 
 -(UIBarButtonItem*) createUIBarButton{
@@ -65,19 +72,26 @@
 
 -(void) facebookLogout{
     [[FBSDKLoginManager new] logOut];
+    [PFUser logOut];
+    self.userToDisplay = nil;
     [self.tabBarController setSelectedIndex:0];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DogCollectionViewCell *cell= (DogCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"DogCell" forIndexPath:indexPath];
+    DogCollectionViewCell *cell = (DogCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"DogCell" forIndexPath:indexPath];
     
-    Dog *d = [(self.userToDisplay[@"Dogs"]) objectAtIndex:indexPath.row];
-    [d fetch];
+    int sum = 0;
+    for (int i = 0; i < indexPath.length; ++i){
+        sum += [indexPath indexAtPosition:i];
+    }
     
-    cell.dogName = d[@"Name"];
-    
-    cell.dogImage.image = [UIImage imageWithData:[((PFFile *)d[@"Image"]) getData]];
+    Dog *d = [self.dogs objectAtIndex:sum];
+    [d fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        cell.dogImage.image = [UIImage imageWithData:[((PFFile *)d[@"Image"]) getData]];
+        cell.dogName = d[@"Name"];
+        [collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }];
     
     return cell;
 }
@@ -85,10 +99,6 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (self.userToDisplay == nil){
-        self.userToDisplay = [PFUser currentUser];
-    }
-//    return 15;
     return [self.userToDisplay[@"Dogs"] count];
 }
 

@@ -74,9 +74,10 @@
             NSMutableArray *dogs = user[@"Dogs"];
 
             if (dogs == nil){
-                dogs = [[NSMutableArray alloc] initWithArray:@[d]];
+                dogs = [[NSMutableArray alloc] init];
             }
-
+            
+            [dogs addObject:d];
             user[@"Dogs"] = dogs;
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (error){

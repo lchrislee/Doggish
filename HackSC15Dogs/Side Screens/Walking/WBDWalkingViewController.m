@@ -8,6 +8,7 @@
 
 #import "WBDWalkingViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
 
 @import GoogleMaps;
 
@@ -52,8 +53,9 @@
 - (void)googleMapsSampleSetup{
     // Create a GMSCameraPosition that tells the map to display the
     // coordinate -33.86,151.20 at zoom level 6.
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:34.0203056
-                                                            longitude:-118.2886556
+    PFGeoPoint *location = self.date[@"Location"];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:location.latitude
+                                                            longitude:location.longitude
                                                                  zoom:16];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -69,14 +71,26 @@
     self.mapGMSMapView.delegate = self;
     self.mapGMSMapView.myLocationEnabled = YES;
     
+    GMSMarker *marker = [GMSMarker markerWithPosition:CLLocationCoordinate2DMake(location.latitude, location.longitude)];
+    marker.draggable = NO;
+    marker.icon = [UIImage imageNamed:@"gmPin"];
+    [marker setMap:self.mapGMSMapView];
+    
     [self.view addSubview:self.mapGMSMapView];
     //http://stackoverflow.com/questions/15417811/cannot-put-a-google-maps-gmsmapview-in-a-subview-of-main-main-view
 }
 
 - (IBAction)endWalkPressed:(id)sender {
     if (self.didStartWalk){
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        PFUser *current = [PFUser currentUser];
+        current[@"CurrentDate"] = [[NSNull alloc] init];
+        [current saveInBackground];
+        
+        self.date[@"isOver"] = @(YES);
+        [self.date saveInBackground];
+        
         [self.navigationController.navigationBar setHidden:NO];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }else{
         self.didStartWalk = YES;
         [self.endWalkButton setTitle:@"End Walk" forState:UIControlStateNormal];

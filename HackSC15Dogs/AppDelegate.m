@@ -13,8 +13,6 @@
 #import <Parse/Parse.h>
 #import "Dog.h"
 
-#import "WBDMessagesViewController.h"
-#import "WBDDatesViewController.h"
 #import "WBDFavoritesViewController.h"
 #import "WBDHomeViewController.h"
 #import "WBDProfileViewController.h"
@@ -51,16 +49,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.tabController.hidesBottomBarWhenPushed = NO;
     
     self.tabController.viewControllers = @[[self makeHomeController],
-//                                           [self makeMessagesController],
-//                                           [self makeDatesController],
-//                                           [self makeFavoritesController],
                                            [self makeProfileController]
                                            ];
     self.tabController.selectedIndex = 0;
     
-//    self.loginScreen = [[WBDLoginScreenController alloc] init];
-//    self.loginScreen.tabBar = self.tabController;
-//    self.window.rootViewController = self.loginScreen;
     self.window.rootViewController = self.tabController;
     
     [self.window makeKeyAndVisible];
@@ -86,32 +78,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     return viewController;
 }
-
-//- (UINavigationController *)makeFavoritesController{
-//    WBDFavoritesViewController *favoritesView = [[WBDFavoritesViewController alloc] init];
-//    favoritesView.title = @"Favorites";
-//    
-//    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:favoritesView];
-//    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[UIImage imageNamed:@"iconFavoriteSmall.png"] tag:0];
-//    return viewController;
-//}
-
-//- (UINavigationController *)makeDatesController{
-//    WBDDatesViewController *dateView = [[WBDDatesViewController alloc] init];
-//    dateView.title = @"Dates";
-//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dateView];
-//    navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Dates" image:[UIImage imageNamed:@"iconDateSmall.png"] tag:0];
-//    return navController;
-//}
-//
-//- (UINavigationController *)makeMessagesController{
-//    WBDMessagesViewController *messageView = [[WBDMessagesViewController alloc] init];
-//    messageView.title = @"Messages";
-//    
-//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:messageView];
-//    navController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Messages" image:[UIImage imageNamed:@"iconChatSmall.png"] tag:0];
-//    return navController;
-//}
 
 - (UINavigationController *)makeProfileController{
     WBDProfileViewController *profileView = [[WBDProfileViewController alloc] init];

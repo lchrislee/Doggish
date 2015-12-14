@@ -2,12 +2,14 @@
 //  WBDCreateWalkViewController.m
 //  HackSC15Dogs
 //
-//  Created by abc on 11/14/15.
+//  Created by Chris Lee on 11/14/15.
 //  Copyright © 2015 Wannabedev. All rights reserved.
 //
 
 #import "WBDCreateWalkViewController.h"
 #import "WBDWalkingViewController.h"
+#import <Parse/Parse.h>
+#import "Dog.h"
 #import "PlayDate.h"
 
 @import GoogleMaps;
@@ -18,7 +20,7 @@
 @property (strong, nonatomic) UIPickerView *timePicker;
 @property (strong, nonatomic) NSArray *timesAvailable;
 @property (nonatomic) NSUInteger timeDifference;
-@property (strong, nonatomic) NSArray *dogs;
+@property (strong, nonatomic) NSMutableArray *dogs;
 
 @property (strong, nonatomic) GMSMarker *marker;
 @property (strong, nonatomic) GMSMapView *mapGMSMapView;
@@ -96,7 +98,7 @@
 - (void) viewDidLoad{
     self.view.backgroundColor = [UIColor whiteColor];
     self.timesAvailable = @[@"15", @"30", @"45", @"60", @"90", @"120", @"150"];
-    self.dogs = @[@"Sully", @"Max", @"Snowpuff", @"Diamond"];
+    self.dogs = (NSMutableArray *)(([PFUser currentUser])[@"Dogs"]);
     
     [self createPicker];
     [self createTable];
@@ -153,9 +155,12 @@
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     
-    //TODO FILL CELL
-    cell.textLabel.text = [self.dogs objectAtIndex:indexPath.row];
-    
+    Dog *d = [self.dogs objectAtIndex:indexPath.row];
+    [d fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        cell.textLabel.text = d[@"Name"];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+
     return cell;
 }
 
@@ -195,15 +200,30 @@
     PlayDate *date = [PlayDate object];
     date[@"Duration"] = @([time integerValue]);
     date[@"Location"] = [PFGeoPoint geoPointWithLatitude:self.marker.position.latitude longitude:self.marker.position.longitude];
-//    date[@"Walker"] = [PFUser currentUser];
+    date[@"Walker"] = [PFUser currentUser];
+    date[@"isOver"] = @(NO);
     date[@"WalkingDogs"] = @[]; // add dogs
     
     [date saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded){
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            WBDWalkingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"WalkViewController"];
-            [vc setDate:date];
-            [self.navigationController pushViewController:vc animated:YES];
+            PFUser * current = [PFUser currentUser];
+            current[@"CurrentDate"] = date;
+            
+            [current saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded){
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                    WBDWalkingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"WalkViewController"];
+                    [vc setDate:date];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else{
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Could not start walk"
+                                                                                             message:@"Please try to make another walk."
+                                                                                      preferredStyle:UIAlertControllerStyleAlert];
+                    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                      handler:^(UIAlertAction * _Nonnull action) {}]];
+                    [self presentViewController:alertController animated:YES completion:nil];
+                }
+            }];
         }else{
             NSLog([error localizedDescription]);
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Could not start walk"

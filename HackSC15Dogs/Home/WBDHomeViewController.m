@@ -243,6 +243,8 @@
                     newUser[@"Name"] = passText;
                     newUser[@"Image"] = picture;
                     newUser[@"Url"] = link;
+                    newUser[@"Dogs"] = @[];
+                    
                     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                         [self.loginView removeFromSuperview];
                         [self.tabBarController.tabBar setHidden:NO];
@@ -253,6 +255,15 @@
                         [[NSUserDefaults standardUserDefaults] setValue:appID forKey:@"appID"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                     }];
+                }else{
+                    [self.loginView removeFromSuperview];
+                    [self.tabBarController.tabBar setHidden:NO];
+                    [self.navigationController.navigationBar setHidden:NO];
+                    
+                    NSLog(@"not an error");
+                    NSString * appID = [[FBSDKAccessToken currentAccessToken] appID];
+                    [[NSUserDefaults standardUserDefaults] setValue:appID forKey:@"appID"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                 }
             } ];
         }];
