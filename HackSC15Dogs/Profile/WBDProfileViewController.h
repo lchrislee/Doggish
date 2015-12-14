@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface WBDProfileViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     UICollectionView *_collectionView;
 }
+@property (weak, nonatomic) PFUser *userToDisplay;
 @end

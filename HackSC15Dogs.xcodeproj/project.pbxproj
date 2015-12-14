@@ -16,7 +16,6 @@
 		2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1351BF7E18B0001AEF8 /* WBDProfileViewController.m */; };
 		2842A1411BF7F1970001AEF8 /* WBDFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1401BF7F1970001AEF8 /* WBDFilterViewController.m */; };
 		2842A1461BF82CFE0001AEF8 /* WBDSearchProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */; };
-		2842A1481BF830B00001AEF8 /* WBDMapMarkerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */; };
 		2842A14F1BF85F140001AEF8 /* WBDCreateWalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */; };
 		2842A1591BF87B330001AEF8 /* WBDAddDogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1581BF87B330001AEF8 /* WBDAddDogViewController.m */; };
 		287894A61BF8AB2E00BF3122 /* WBDMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287894A51BF8AB2E00BF3122 /* WBDMessagesViewController.m */; };
@@ -85,8 +84,6 @@
 		2842A1401BF7F1970001AEF8 /* WBDFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDFilterViewController.m; path = "Side Screens/Filter/WBDFilterViewController.m"; sourceTree = "<group>"; };
 		2842A1441BF82CFE0001AEF8 /* WBDSearchProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDSearchProfileViewController.h; path = "Side Screens/WBDSearchProfileViewController.h"; sourceTree = "<group>"; };
 		2842A1451BF82CFE0001AEF8 /* WBDSearchProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDSearchProfileViewController.m; path = "Side Screens/WBDSearchProfileViewController.m"; sourceTree = "<group>"; };
-		2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDMapMarkerFactory.m; path = Factories/WBDMapMarkerFactory.m; sourceTree = "<group>"; };
-		2842A1491BF830C60001AEF8 /* WBDMapMarkerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDMapMarkerFactory.h; path = Factories/WBDMapMarkerFactory.h; sourceTree = "<group>"; };
 		2842A14D1BF85F140001AEF8 /* WBDCreateWalkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDCreateWalkViewController.h; path = "Side Screens/WBDCreateWalkViewController.h"; sourceTree = "<group>"; };
 		2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDCreateWalkViewController.m; path = "Side Screens/WBDCreateWalkViewController.m"; sourceTree = "<group>"; };
 		2842A1571BF87B320001AEF8 /* WBDAddDogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDAddDogViewController.h; path = "Side Screens/Add Dog/WBDAddDogViewController.h"; sourceTree = "<group>"; };
@@ -292,15 +289,6 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
-		2842A1381BF7E88B0001AEF8 /* Factories */ = {
-			isa = PBXGroup;
-			children = (
-				2842A1471BF830B00001AEF8 /* WBDMapMarkerFactory.m */,
-				2842A1491BF830C60001AEF8 /* WBDMapMarkerFactory.h */,
-			);
-			name = Factories;
-			sourceTree = "<group>";
-		};
 		2842A1501BF85F1E0001AEF8 /* Create Walk */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,7 +366,6 @@
 			isa = PBXGroup;
 			children = (
 				28D087F81C1E0FD700AD27F1 /* Model */,
-				2842A1381BF7E88B0001AEF8 /* Factories */,
 				2842A1371BF7E8840001AEF8 /* Managers */,
 				2842A11C1BF7AD400001AEF8 /* Side Screens */,
 				2842A11B1BF7AD380001AEF8 /* Main Tabs */,
@@ -658,7 +645,6 @@
 				2842A1411BF7F1970001AEF8 /* WBDFilterViewController.m in Sources */,
 				2842A1241BF7AE280001AEF8 /* WBDDatesViewController.m in Sources */,
 				2842A12B1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m in Sources */,
-				2842A1481BF830B00001AEF8 /* WBDMapMarkerFactory.m in Sources */,
 				2842A1331BF7D5F80001AEF8 /* WBDHomeViewController.m in Sources */,
 				2842A1461BF82CFE0001AEF8 /* WBDSearchProfileViewController.m in Sources */,
 				2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */,

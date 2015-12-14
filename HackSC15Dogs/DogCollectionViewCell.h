@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface DogCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *dogImage;
+@property (weak, nonatomic) IBOutlet UILabel *dogName;
 
 @end

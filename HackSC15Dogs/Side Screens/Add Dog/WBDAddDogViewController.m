@@ -36,7 +36,7 @@
     self.navigationItem.title = @"Add Dog";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveDog)];
     self.scrollView.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height+20, 0, 0, 0);
-    [self.scrollView targetForAction:@selector(sizeValueChanged) withSender:self];
+    [self.sliderSize addTarget:self action:@selector(sizeValueChanged) forControlEvents:UIControlEventValueChanged];
 }
 
 - (IBAction)dogImageUpdate:(id)sender {
@@ -64,12 +64,25 @@
     d[@"Age"] = @([self.dogAgeField.text integerValue] % 5);
     d[@"Rating"] = @0;
     d[@"Size"] = @(self.sliderSize.value);
-//    d[@"Owner"] = [PFUser currentUser];
+    d[@"Owner"] = [PFUser currentUser];
     d[@"Image"] = [PFFile fileWithName:[NSString stringWithFormat:@"%@_image.png", self.dogName.text]
                                   data:UIImagePNGRepresentation(self.dogImageButton.imageView.image)];
     
     [d saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded){
+            PFUser *user = [PFUser currentUser];
+            NSMutableArray *dogs = user[@"Dogs"];
+
+            if (dogs == nil){
+                dogs = [[NSMutableArray alloc] initWithArray:@[d]];
+            }
+
+            user[@"Dogs"] = dogs;
+            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (error){
+                    NSLog(@"BAD!: %@",[error localizedDescription]);
+                }
+            }];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             NSLog([error localizedDescription]);

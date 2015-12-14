@@ -29,8 +29,6 @@
 
 @implementation WBDHomeViewController
 
-static BOOL showMarkers = YES;
-
 - (void )viewWillAppear:(BOOL)animated{
     if ([FBSDKAccessToken currentAccessToken]){
         [self.tabBarController.tabBar setHidden:NO];
@@ -68,7 +66,7 @@ static BOOL showMarkers = YES;
     NSLog( @"could not find location");
 }
 
-- (void)googleMapsSampleSetup{
+- (void)googleMapsSetup{
     // Create a GMSCameraPosition that tells the map to display the
     // coordinate -33.86,151.20 at zoom level 6.
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:34.0203056
@@ -147,24 +145,19 @@ static BOOL showMarkers = YES;
     // Do any additional setup after loading the view.
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.15 green:0.67 blue:0.75 alpha:1.0];
     [self locationSetup];
-    [self googleMapsSampleSetup];
+    [self googleMapsSetup];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"walkDog"] style:UIBarButtonItemStylePlain target:self action:@selector(goOnWalk)];
 
-    if (showMarkers == YES){
-        [self addMarkers];
-    }
-    
-    if (showMarkers == NO)
-    {
-        showMarkers = YES;
-    }
+    [self addMarkers];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
     if ([FBSDKAccessToken currentAccessToken] == nil){
+        NSLog(@"No Facebook!");
         [self showLogin];
     }else if ([PFUser currentUser] == nil){
+        NSLog(@"Facebook but no user!");
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields":@"id,name"}];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (!error){
@@ -184,6 +177,7 @@ static BOOL showMarkers = YES;
             }
         }];
     }else{
+        NSLog(@"Facebook and user!");
         FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields":@"picture,link"}];
         [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             NSDictionary *resultJSON = (NSDictionary *)result;
@@ -191,8 +185,9 @@ static BOOL showMarkers = YES;
             NSString *link = [resultJSON objectForKey:@"link"];
             NSString *picture;
             
-            if ([[[resultJSON objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"is_silhouette"] == NO){
-                picture = [[[resultJSON objectForKey:@"picture]"] objectForKey:@"data"] objectForKey:@"url"];
+            bool is_silhouette = [[[resultJSON objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"is_silhouette"];
+            if (is_silhouette == 1){
+                picture = [[[resultJSON objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"];
             }else{
                 picture = @"";
             }

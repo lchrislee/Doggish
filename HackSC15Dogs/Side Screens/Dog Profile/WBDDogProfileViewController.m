@@ -7,8 +7,10 @@
 //
 
 #import "WBDDogProfileViewController.h"
+#import <Parse/Parse.h>
+#import <WebKit/WebKit.h>
 
-@interface WBDDogProfileViewController ()
+@interface WBDDogProfileViewController () <WKNavigationDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *dogImage;
 @property (weak, nonatomic) IBOutlet UIButton *humanImage;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
@@ -20,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *dogAboutTextView;
 @property (weak, nonatomic) IBOutlet UITextView *dogFavoriteTextView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UIView *mainView;
 
 @end
 
@@ -48,6 +51,7 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self setNavItems];
+    self.mainView = self.view;
     // Do any additional setup after loading the view.
 }
 
@@ -69,7 +73,10 @@
 }
 
 - (IBAction)checkProfilePressed:(id)sender {
-    
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:[[WKWebViewConfiguration alloc] init]];
+    webView.navigationDelegate = self;
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:([PFUser currentUser][@"Url"])]]];
+    self.view = webView;
 }
 
 - (void) message{

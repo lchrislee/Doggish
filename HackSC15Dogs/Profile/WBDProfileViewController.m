@@ -11,6 +11,9 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "WBDAddDogViewController.h"
+#import "DogCollectionViewCell.h"
+#import "Dog.h"
+
 @interface WBDProfileViewController ()
 
 @end
@@ -21,14 +24,18 @@
     [self.tabBarController.tabBar setHidden:NO];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (void) navigationSetup{
     self.navigationItem.title = @"Dogs";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDog)];
     self.navigationItem.title = @"Your Dogs";
-
+    
     self.navigationItem.leftBarButtonItem = [self createUIBarButton];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self navigationSetup];
 
     //self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
@@ -42,7 +49,7 @@
     _collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_collectionView];
     // Do any additional setup after loading the view, typically from a nib.
-
+    
 }
 
 -(UIBarButtonItem*) createUIBarButton{
@@ -63,17 +70,26 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"DogCell" forIndexPath:indexPath];
-    //    cell.layer.borderWidth=1.0f;
-    //    cell.layer.borderColor=[UIColor blackColor].CGColor;
-    //creates border
+    DogCollectionViewCell *cell= (DogCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"DogCell" forIndexPath:indexPath];
+    
+    Dog *d = [(self.userToDisplay[@"Dogs"]) objectAtIndex:indexPath.row];
+    [d fetch];
+    
+    cell.dogName = d[@"Name"];
+    
+    cell.dogImage.image = [UIImage imageWithData:[((PFFile *)d[@"Image"]) getData]];
+    
     return cell;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 15;
+    if (self.userToDisplay == nil){
+        self.userToDisplay = [PFUser currentUser];
+    }
+//    return 15;
+    return [self.userToDisplay[@"Dogs"] count];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionView *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
