@@ -7,23 +7,20 @@
 //
 
 #import "WBDHomeViewController.h"
-#import <CoreLocation/CoreLocation.h>
-#import "WBDSearchProfileViewController.h"
-#import "WBDFilterViewController.h"
+#import "WBDWebProfileViewController.h"
 #import "WBDCreateWalkViewController.h"
+#import "AppDelegate.h"
+#import "PlayDate.h"
 
+#import <CoreLocation/CoreLocation.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import "AppDelegate.h"
 #import <Parse/Parse.h>
-
 
 @import GoogleMaps;
 @interface WBDHomeViewController () <GMSMapViewDelegate, FBSDKLoginButtonDelegate>
-@property (strong, nonatomic) UISegmentedControl *searchSwitcher;
 @property (strong, nonatomic) GMSMapView *mapGMSMapView;
 @property (strong, nonatomic) CLLocationManager * mapCLLocationManager;
-@property (strong, nonatomic) UICollectionView *featuredList;
 @property (strong, nonatomic) UIView *loginView;
 @end
 
@@ -33,6 +30,7 @@
     if ([FBSDKAccessToken currentAccessToken]){
         [self.tabBarController.tabBar setHidden:NO];
         self.view.backgroundColor = [UIColor whiteColor];
+        [self.loginView removeFromSuperview];
     }else{
         [self.tabBarController.tabBar setHidden:YES];
     }
@@ -79,7 +77,7 @@
     self.mapGMSMapView = [GMSMapView mapWithFrame:CGRectMake(0,
                                                              0,
                                                              screenWidth,
-                                                             screenHeight - self.navigationController.navigationBar.frame.size.height - self.searchSwitcher.frame.size.height)
+                                                             screenHeight - self.navigationController.navigationBar.frame.size.height)
                                            camera:camera];
     
     self.mapGMSMapView.camera = camera;
@@ -97,47 +95,49 @@
 
 -(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker{
     NSLog(@"Clicked infowindow");
-    [self.navigationController pushViewController:[[WBDSearchProfileViewController alloc] init] animated:YES];
+
+    WBDWebProfileViewController *vc = [[WBDWebProfileViewController alloc] init];
+    PlayDate *pd = marker.userData;
+    PFUser *walker = pd[@"Walker"];
+    [walker fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if (!error){
+            vc.user = walker;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            NSLog([error localizedDescription]);
+        }
+    }];
 }
 
-- (void) addMarkers{
-    // Creates a marker in the center of the map.
-    GMSMarker *markerFirst = [[GMSMarker alloc] init];
-    markerFirst.position = CLLocationCoordinate2DMake(34.0204478, -118.2892725);
-    markerFirst.title = @"Fido";
-    markerFirst.snippet = @"heading over";
-    markerFirst.map = self.mapGMSMapView;
-    markerFirst.icon = [UIImage imageNamed:@"gmPin.png"];
-
-    // Creates a marker in the center of the map.
-    GMSMarker *markerSecond = [[GMSMarker alloc] init];
-    markerSecond.position = CLLocationCoordinate2DMake(34.0206968, -118.2890257);
-    markerSecond.title = @"Molly";
-    markerSecond.snippet = @"playing";
-    markerSecond.map = self.mapGMSMapView;
-    markerSecond.icon = [UIImage imageNamed:@"gmPin.png"];
-}
-
-- (void) segmentedSelected{
-    if (self.searchSwitcher.selectedSegmentIndex == 0){
-        for (UIView *v in [self.view subviews]){
-            if ([v isKindOfClass:[UICollectionView class]]){
-                [v removeFromSuperview];
-            }
+- (void) addMarkers: (NSMutableArray *)dates stopToCheck: (BOOL)check{
+    NSLog(@"Marker count: %ld", [dates count]);
+    
+    if (check){
+        if ([dates count] == 0){
+            [self performDateSearchInBackground];
+            return;
         }
-        [self.view addSubview:self.searchSwitcher];
-        [self.view addSubview:self.mapGMSMapView];
-        [self.view sendSubviewToBack:self.mapGMSMapView];
-    }else{
-        for (UIView *v in [self.view subviews]){
-            if ([v isKindOfClass:[GMSMapView class]]){
-                [v removeFromSuperview];
-            }
-        }
-        [self.view addSubview:self.searchSwitcher];
-        [self.view addSubview:self.featuredList];
-        [self.view sendSubviewToBack:self.featuredList];
     }
+    
+    dispatch_apply([dates count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(size_t i){
+        PlayDate *date = [dates objectAtIndex:i];
+        PFGeoPoint *location = date[@"Location"];
+        NSLog(@"Location added: %@", location);
+        
+        PFUser *walker = date[@"Walker"];
+        [walker fetch];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            GMSMarker *marker = [[GMSMarker alloc] init];
+            marker.position = CLLocationCoordinate2DMake(location.latitude, location.longitude);
+            marker.title = walker[@"Name"];
+            marker.draggable = NO;
+            marker.snippet = (date[@"isStarted"] ? @"Playing" : @"Heading over");
+            marker.icon = [UIImage imageNamed:@"gmPin.png"];
+            marker.map = self.mapGMSMapView;
+            marker.userData = date;
+        });
+    });
 }
 
 - (void)viewDidLoad {
@@ -148,8 +148,6 @@
     [self googleMapsSetup];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"walkDog"] style:UIBarButtonItemStylePlain target:self action:@selector(goOnWalk)];
-
-    [self addMarkers];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
@@ -197,6 +195,9 @@
             [user saveInBackground];
         }];
     }
+    
+    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [self addMarkers:delegate.dates stopToCheck:YES];
 }
 
 - (void)showLogin{
@@ -282,28 +283,38 @@
     [self.navigationController pushViewController:[[WBDCreateWalkViewController alloc] init] animated:YES];
 }
 
-- (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary{
-    NSLog(@"WORKS TO HERE");
-    NSLog(dictionary);
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (UICollectionView *)featuredList{
-    if (!_featuredList){
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        CGFloat screenWidth = screenRect.size.width;
-        CGFloat screenHeight = screenRect.size.height;
-        
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        _featuredList = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight) collectionViewLayout:layout];
-        [_featuredList setBackgroundColor:[UIColor whiteColor]];
+-(void) performDateSearchInBackground{
+    UIDevice *device = [UIDevice currentDevice];
+    
+    if (![device isMultitaskingSupported]){
+        return;
     }
     
-    return _featuredList;
+    dispatch_queue_t background = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0);
+    dispatch_async(background, ^{
+        __block UIBackgroundTaskIdentifier bTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+            [[UIApplication sharedApplication] endBackgroundTask:bTask];
+            bTask = UIBackgroundTaskInvalid;
+        }];
+        
+        PFQuery *playDateQuery = [PFQuery queryWithClassName:@"PlayDate"];
+        [playDateQuery whereKey:@"isOver" equalTo:@(NO)];
+        [playDateQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (!error){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self addMarkers:[objects mutableCopy] stopToCheck:NO];
+                });
+            }
+            
+            [[UIApplication sharedApplication] endBackgroundTask:bTask];
+            bTask = UIBackgroundTaskInvalid;
+        }];
+    });
 }
 
 /*

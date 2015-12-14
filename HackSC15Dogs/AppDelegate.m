@@ -12,8 +12,8 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <Parse/Parse.h>
 #import "Dog.h"
+#import "PlayDate.h"
 
-#import "WBDFavoritesViewController.h"
 #import "WBDHomeViewController.h"
 #import "WBDProfileViewController.h"
 
@@ -49,25 +49,50 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.tabController.hidesBottomBarWhenPushed = NO;
     
     self.tabController.viewControllers = @[[self makeHomeController],
-                                           [self makeProfileController]
-                                           ];
+                                           [self makeProfileController]];
     self.tabController.selectedIndex = 0;
     
     self.window.rootViewController = self.tabController;
     
     [self.window makeKeyAndVisible];
     
-    [Parse enableLocalDatastore];
-    
     [Dog registerSubclass];
+    [PlayDate registerSubclass];
     
     // Initialize Parse.
     [Parse setApplicationId:@"Skfywo7iBrJKN2VDDh8HDuYXqQZHMQi7XHBtqpU4"
                   clientKey:@"8j1gwIgSD3uGqJKeXKc6ZBovQczk1FVg6Hmi0A7K"];
     
+    [self performBackgroundPlayDateSearch];
     return YES;
 }
 
+-(void) performBackgroundPlayDateSearch{
+    UIDevice *device = [UIDevice currentDevice];
+    
+    if (![device isMultitaskingSupported]){
+        return;
+    }
+    
+    dispatch_queue_t background = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0);
+    dispatch_async(background, ^{
+        __block UIBackgroundTaskIdentifier bTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+            [[UIApplication sharedApplication] endBackgroundTask:bTask];
+            bTask = UIBackgroundTaskInvalid;
+        }];
+        
+        PFQuery *playDateQuery = [PFQuery queryWithClassName:@"PlayDate"];
+        [playDateQuery whereKey:@"isOver" equalTo:@(NO)];
+        [playDateQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (!error){
+                self.dates = [objects mutableCopy];
+            }
+            
+            [[UIApplication sharedApplication] endBackgroundTask:bTask];
+            bTask = UIBackgroundTaskInvalid;
+        }];
+    });
+}
 
 - (UINavigationController *)makeHomeController{
     WBDHomeViewController *homeView = [[WBDHomeViewController alloc] init];
@@ -99,6 +124,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // [START_EXCLUDE]
     _connectedToGCM = NO;
     // [END_EXCLUDE]
+    [self performBackgroundPlayDateSearch];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -119,6 +145,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
             // [END_EXCLUDE]
         }
     }];
+    
+    [self performBackgroundPlayDateSearch];
 }
 
 - (void)subscribeToTopic {

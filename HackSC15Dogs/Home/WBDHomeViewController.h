@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface WBDHomeViewController : UIViewController
-- (void) fillDictionaryWithDictionary:(NSMutableDictionary *)dictionary;
 @end

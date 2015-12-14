@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Dog.h"
+#import <Parse/Parse.h>
 
 @interface WBDDogProfileViewController : UIViewController
-
+@property (strong, nonatomic) Dog *dog;
+@property (strong, nonatomic) PFUser *user;
 @end

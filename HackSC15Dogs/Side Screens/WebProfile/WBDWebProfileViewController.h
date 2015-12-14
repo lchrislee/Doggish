@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface WBDWebProfileViewController : UIViewController
-@property (strong, nonatomic) NSString *urlToDisplay;
+@property (strong, nonatomic) PFUser *user;
 @end

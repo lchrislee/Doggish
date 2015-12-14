@@ -117,6 +117,7 @@
     
     self.table = [[UITableView alloc] initWithFrame:CGRectMake(0, label.frame.origin.y + label.frame.size.height, self.view.frame.size.width, self.timePicker.frame.origin.y - label.frame.origin.y - 5) style:UITableViewStylePlain];
     self.table.delegate = self;
+    self.table.allowsMultipleSelection = YES;
     self.table.dataSource = self;
     [self.table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Dogs Owned Cell"];
     
@@ -202,6 +203,14 @@
     date[@"Location"] = [PFGeoPoint geoPointWithLatitude:self.marker.position.latitude longitude:self.marker.position.longitude];
     date[@"Walker"] = [PFUser currentUser];
     date[@"isOver"] = @(NO);
+    date[@"isStarted"] = @(NO);
+    
+    NSArray *selectedDogs = [self.table indexPathsForSelectedRows];
+    
+    for (int i = 0; i < [selectedDogs count]; ++i){
+        // add dogs
+    }
+    
     date[@"WalkingDogs"] = @[]; // add dogs
     
     [date saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

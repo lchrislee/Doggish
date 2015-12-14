@@ -10,7 +10,6 @@
 		28296C0C1C0E7ED2000586BE /* WBDWalkingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28296C0B1C0E7ED2000586BE /* WBDWalkingViewController.m */; };
 		28296C101C0E95AD000586BE /* WBDDogProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28296C0F1C0E95AD000586BE /* WBDDogProfileViewController.m */; };
 		2842A1171BF70B280001AEF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2842A1161BF70B280001AEF8 /* GoogleService-Info.plist */; };
-		2842A12B1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A12A1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m */; };
 		2842A1331BF7D5F80001AEF8 /* WBDHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1321BF7D5F80001AEF8 /* WBDHomeViewController.m */; };
 		2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A1351BF7E18B0001AEF8 /* WBDProfileViewController.m */; };
 		2842A14F1BF85F140001AEF8 /* WBDCreateWalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2842A14E1BF85F140001AEF8 /* WBDCreateWalkViewController.m */; };
@@ -69,8 +68,6 @@
 		28296C0E1C0E95AD000586BE /* WBDDogProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDDogProfileViewController.h; path = "Side Screens/Dog Profile/WBDDogProfileViewController.h"; sourceTree = "<group>"; };
 		28296C0F1C0E95AD000586BE /* WBDDogProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDDogProfileViewController.m; path = "Side Screens/Dog Profile/WBDDogProfileViewController.m"; sourceTree = "<group>"; };
 		2842A1161BF70B280001AEF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
-		2842A1291BF7C3CA0001AEF8 /* WBDFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDFavoritesViewController.h; path = Favorites/WBDFavoritesViewController.h; sourceTree = "<group>"; };
-		2842A12A1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDFavoritesViewController.m; path = Favorites/WBDFavoritesViewController.m; sourceTree = "<group>"; };
 		2842A1311BF7D5F80001AEF8 /* WBDHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDHomeViewController.h; path = Home/WBDHomeViewController.h; sourceTree = "<group>"; };
 		2842A1321BF7D5F80001AEF8 /* WBDHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBDHomeViewController.m; path = Home/WBDHomeViewController.m; sourceTree = "<group>"; };
 		2842A1341BF7E18B0001AEF8 /* WBDProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBDProfileViewController.h; path = Profile/WBDProfileViewController.h; sourceTree = "<group>"; };
@@ -206,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				2842A11F1BF7AD550001AEF8 /* Profile */,
-				2842A11E1BF7AD4E0001AEF8 /* Favorites */,
 				2842A11D1BF7AD470001AEF8 /* Home */,
 			);
 			name = "Main Tabs";
@@ -233,15 +229,6 @@
 			name = Home;
 			sourceTree = "<group>";
 		};
-		2842A11E1BF7AD4E0001AEF8 /* Favorites */ = {
-			isa = PBXGroup;
-			children = (
-				2842A1291BF7C3CA0001AEF8 /* WBDFavoritesViewController.h */,
-				2842A12A1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m */,
-			);
-			name = Favorites;
-			sourceTree = "<group>";
-		};
 		2842A11F1BF7AD550001AEF8 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,13 +237,6 @@
 				2842A1351BF7E18B0001AEF8 /* WBDProfileViewController.m */,
 			);
 			name = Profile;
-			sourceTree = "<group>";
-		};
-		2842A1371BF7E8840001AEF8 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Managers;
 			sourceTree = "<group>";
 		};
 		2842A1501BF85F1E0001AEF8 /* Create Walk */ = {
@@ -327,7 +307,6 @@
 			isa = PBXGroup;
 			children = (
 				28D087F81C1E0FD700AD27F1 /* Model */,
-				2842A1371BF7E8840001AEF8 /* Managers */,
 				2842A11C1BF7AD400001AEF8 /* Side Screens */,
 				2842A11B1BF7AD380001AEF8 /* Main Tabs */,
 				28A260851BF6FE420073C6BA /* AppDelegate.h */,
@@ -603,7 +582,6 @@
 				28927C451C111C7D00394E58 /* DogCollectionViewCell.m in Sources */,
 				2842A1591BF87B330001AEF8 /* WBDAddDogViewController.m in Sources */,
 				28A260871BF6FE420073C6BA /* AppDelegate.m in Sources */,
-				2842A12B1BF7C3CA0001AEF8 /* WBDFavoritesViewController.m in Sources */,
 				2842A1331BF7D5F80001AEF8 /* WBDHomeViewController.m in Sources */,
 				2842A1361BF7E18B0001AEF8 /* WBDProfileViewController.m in Sources */,
 				28D087FC1C1E105900AD27F1 /* Dog.m in Sources */,

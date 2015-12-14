@@ -8,20 +8,15 @@
 
 #import "WBDDogProfileViewController.h"
 #import "WBDWebProfileViewController.h"
-#import "Dog.h"
-#import <Parse/Parse.h>
 #import <WebKit/WebKit.h>
 
 @interface WBDDogProfileViewController () <WKNavigationDelegate>
-@property (weak, nonatomic) Dog *dog;
+
 @property (weak, nonatomic) IBOutlet UIImageView *dogImage;
 @property (weak, nonatomic) IBOutlet UIButton *humanImage;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *humanNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dogBreedLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
-@property (weak, nonatomic) IBOutlet UILabel *genderLabel;
-@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UITextView *dogAboutTextView;
 @property (weak, nonatomic) IBOutlet UITextView *dogFavoriteTextView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -34,6 +29,11 @@
     self.humanImage.layer.cornerRadius = self.humanImage.frame.size.width / 2;
     self.humanImage.layer.masksToBounds = YES;
     self.humanImage.layer.borderWidth = 2.0f;
+    
+    NSString *urlString = self.user[@"Image"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSData *imageData = [NSData dataWithContentsOfURL:url];
+    self.humanImage.imageView.image = [UIImage imageWithData:imageData];
 }
 
 - (void) fixDogImage{
@@ -41,24 +41,35 @@
 }
 
 - (void) setNavItems{
-    self.navigationItem.title = @"PEANUT";
+    self.navigationItem.title = self.dog[@"Name"];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:1.13 green:0.81 blue:0.34 alpha:1.0]}];
-    
-    UIBarButtonItem *messageButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"meetingRequest"] style:UIBarButtonItemStylePlain target:self action:@selector(message)];
-    messageButton.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItems = @[messageButton];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.dog fetch];
+    if (self.user == nil){
+        self.user = [PFUser currentUser];
+    }
+    [self.user fetch];
+    
     [self setNavItems];
-    // Do any additional setup after loading the view.
+    
+    self.ratingLabel.hidden = YES;
+    self.humanNameLabel.text = [NSString stringWithFormat:@"%@'s",(self.user[@"Name"])];
+    self.dogBreedLabel.text = self.dog[@"Breed"];
+    self.dogFavoriteTextView.text = self.dog[@"Favorite"];
+    self.dogAboutTextView.text = self.dog[@"About"];
+    
+    PFFile *dogImage = self.dog[@"Image"];
+    self.dogImage.image = [UIImage imageWithData:[dogImage getData]];
 }
 
-- (void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-//    [self setUpHuman];
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self setUpHuman];
     [self fixDogImage];
 }
 
@@ -71,15 +82,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)checkProfilePressed:(id)sender {
-    PFUser *dogOwner = self.dog[@"Owner"];
-    [dogOwner fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        WBDWebProfileViewController *vc = [[WBDWebProfileViewController alloc] init];
-        vc.urlToDisplay = dogOwner[@"Url"];
-        [self.navigationController pushViewController:vc animated:YES];
-    }];
 }
 
 - (void) message{

@@ -11,6 +11,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "WBDAddDogViewController.h"
+#import "WBDDogProfileViewController.h"
 #import "DogCollectionViewCell.h"
 #import "Dog.h"
 
@@ -34,10 +35,12 @@
 
 - (void) navigationSetup{
     self.navigationItem.title = @"Dogs";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDog)];
-    self.navigationItem.title = @"Your Dogs";
-    
-    self.navigationItem.leftBarButtonItem = [self createUIBarButton];
+    if (self.userToDisplay == nil){
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDog)];
+        self.navigationItem.title = @"Your Dogs";
+        
+        self.navigationItem.leftBarButtonItem = [self createUIBarButton];
+    }
 }
 
 - (void)viewDidLoad {
@@ -71,8 +74,8 @@
 }
 
 -(void) facebookLogout{
-    [[FBSDKLoginManager new] logOut];
     [PFUser logOut];
+    [[FBSDKLoginManager new] logOut];
     self.userToDisplay = nil;
     [self.tabBarController setSelectedIndex:0];
 }
@@ -111,6 +114,19 @@
 {
     //allows for 2 cells in each row
     return CGSizeMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.width/2);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    int sum = 0;
+    for (int i = 0; i < indexPath.length; ++i){
+        sum += [indexPath indexAtPosition:i];
+    }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    WBDDogProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"DogProfile"];
+    vc.dog = self.dogs[sum];
+    vc.user = self.userToDisplay;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

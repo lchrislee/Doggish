@@ -9,6 +9,8 @@
 #import "WBDWalkingViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @import GoogleMaps;
 
@@ -17,6 +19,7 @@
 @property (strong, nonatomic) GMSMapView *mapGMSMapView;
 @property (strong, nonatomic) CLLocationManager * mapCLLocationManager;
 @property BOOL didStartWalk;
+@property (weak, nonatomic) IBOutlet UIButton *postOnFacebookButton;
 
 @end
 
@@ -86,14 +89,18 @@
         current[@"CurrentDate"] = [[NSNull alloc] init];
         [current saveInBackground];
         
-        self.date[@"isOver"] = @(YES);
-        [self.date saveInBackground];
+        if (self.date[@"Walker"] == current){
+            self.date[@"isOver"] = @(YES);
+            [self.date saveInBackground];
+        }
         
         [self.navigationController.navigationBar setHidden:NO];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }else{
         self.didStartWalk = YES;
         [self.endWalkButton setTitle:@"End Walk" forState:UIControlStateNormal];
+        self.date[@"isStarted"] = @(YES);
+        [self.date saveInBackground];
     }
 }
 
@@ -106,6 +113,34 @@
     [self locationSetup];
     [self googleMapsSampleSetup];
     [self.navigationController.navigationBar setHidden:YES];
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentURL = [NSURL URLWithString:@"http://www.developers.facebook.com"];
+    content.contentTitle = @"Meeting some cool dogs with Doggish";
+    
+    PFUser *walker = self.date[@"Walker"];
+    [walker fetchIfNeeded];
+    
+    if (walker == [PFUser currentUser]){
+        content.contentDescription = @"Come play with my dogs!";
+    }else{
+        content.contentDescription = [NSString stringWithFormat:@"Meeting %@'s doggish friends!",walker[@"Name"]];
+    }
+    
+    FBSDKShareButton *shareButton = [[FBSDKShareButton alloc] init];
+    shareButton.center = CGPointMake(self.postOnFacebookButton.frame.origin.x + self.postOnFacebookButton.frame.size.width / 2,
+                                     self.postOnFacebookButton.frame.origin.y + self.postOnFacebookButton.frame.size.height / 2);
+    shareButton.shareContent = content;
+    [self.view addSubview:shareButton];
+    
+    self.postOnFacebookButton.hidden = YES;
+}
+
+- (IBAction)postWalk:(id)sender {
 }
 
 - (void)didReceiveMemoryWarning {
